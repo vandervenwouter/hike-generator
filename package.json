@@ -1,0 +1,7 @@
+{
+  "name": "hike-generator",
+  "private": true,
+  "dependencies": {
+    "vue": "3.5.43"
+  }
+}

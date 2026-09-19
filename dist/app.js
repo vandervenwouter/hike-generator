@@ -89,7 +89,7 @@ const PreviewPanel = defineComponent({
     onMounted(render);
     return { paperPreview };
   },
-  template: `<aside class="preview-panel" aria-label="Print preview"><div class="preview-meta"><span>{{ t('printPreview') }}</span></div><details class="preview-options"><summary><i data-lucide="settings-2" aria-hidden="true"></i><span>{{ t('pdfOptions') }}</span></summary><label><input id="include-technique-explanation" type="checkbox" :checked="state.includeTechniqueExplanation" @change="$emit('toggle-guide', $event.target.checked)"><span>{{ t('includeTechniqueGuide') }}</span></label><label><input id="include-credits" type="checkbox" checked disabled><span>{{ t('includeCredits') }}</span></label></details><div id="paper-preview" ref="paperPreview"></div></aside>`
+  template: `<aside class="preview-panel" aria-label="Print preview"><div class="preview-meta"><span>{{ t('printPreview') }}</span></div><details class="preview-options"><summary><i data-lucide="settings-2" aria-hidden="true"></i><span>{{ t('pdfOptions') }}</span></summary><label><input id="include-technique-explanation" type="checkbox" :checked="state.includeTechniqueExplanation" @change="$emit('toggle-guide', $event.target.checked)"><span>{{ t('includeTechniqueGuide') }}</span></label></details><div id="paper-preview" ref="paperPreview"></div></aside>`
 });
 
 const App = defineComponent({

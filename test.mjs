@@ -802,6 +802,8 @@ assert.match(appSource, /wide \? '-20 -20 140 140'/);
 assert.match(indexSource, /<div id="app"><\/div>/);
 assert.doesNotMatch(appSource, /#element-library.*\.innerHTML|#route-steps.*\.innerHTML/);
 assert.match(appSource, /class="app-footer footer"/);
+assert.match(appSource, /data-insert-index="0"/);
+assert.match(appSource, /insertRouteItemBefore/);
 assert.match(styleSource, /\.element-grid\{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px\}/);
 assert.match(appSource, /https:\/\/www\.linkedin\.com\/in\/wouter-van-der-ven\//);
 assert.match(appSource, /https:\/\/github\.com\/vandervenwouter\/hike-generator/);

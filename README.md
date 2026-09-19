@@ -1,21 +1,19 @@
-# hike-generator
+<h1 align="center">Hike Generator</h1>
 
-## Local development
+<img src="assets/hike-generator-banner.png" alt="Hike Generator">
 
-Run the static app locally:
+Create clear, illustrated hiking routes for scouts, walking groups, and
+outdoor activities. Hike Generator helps you build a route step by step and
+turns it into a printable A4 route sheet.
 
-```sh
-npm run dev
-```
+[Open the live app →](https://vandervenwouter.github.io/hike-generator/)
 
-Open <http://127.0.0.1:4173>. Run the checks with:
+## At a glance
 
-```sh
-npm test
-```
+- Easily draw junctions, or insert a route instruction using different route-techniques.
+- Add comments or add landmarks.
+- Save as a polished route as an A4 PDF, or use JSON based import and export feature.
+- Available in Dutch and English
 
-## GitHub Pages
-
-The GitHub Pages workflow deploys only `dist/` from `main`, so the source repository and the hosted files stay together. In the repository settings, choose **Settings → Pages → Build and deployment → Source → GitHub Actions**.
-
-The deployed app is intended to be available at <https://vandervenwouter.github.io/hike-generator/>.
+The app runs directly in the browser and is designed to turn a route idea into
+a practical route sheet quickly.

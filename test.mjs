@@ -793,6 +793,7 @@ for(const count of [3,4,5]){
 
 const appSource = readFileSync('dist/app.js', 'utf8');
 const indexSource = readFileSync('dist/index.html', 'utf8');
+const styleSource = readFileSync('dist/style.css', 'utf8');
 for (const component of ['RoadTypeEditor', 'LandmarkEditor', 'StepCard', 'RouteEditor', 'Toolbar', 'StepLibrary', 'PreviewPanel', 'App']) {
   assert.match(appSource, new RegExp(`const ${component} = defineComponent`), `${component} component is missing`);
 }
@@ -801,6 +802,7 @@ assert.match(appSource, /wide \? '-20 -20 140 140'/);
 assert.match(indexSource, /<div id="app"><\/div>/);
 assert.doesNotMatch(appSource, /#element-library.*\.innerHTML|#route-steps.*\.innerHTML/);
 assert.match(appSource, /class="app-footer footer"/);
+assert.match(styleSource, /\.element-grid\{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px\}/);
 assert.match(appSource, /https:\/\/www\.linkedin\.com\/in\/wouter-van-der-ven\//);
 assert.match(appSource, /https:\/\/github\.com\/vandervenwouter\/hike-generator/);
 

@@ -54,5 +54,6 @@
 .diagram-content{display:contents}
 .step-card .junction{height:180px;width:180px}
 .step-card .step-junction{height:180px;width:220px}
+@media(max-width:600px){.endpoint + .insert-control{margin-top:8px}}
 #undo{display:none}
 #import-json{cursor:pointer}

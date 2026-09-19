@@ -4,7 +4,7 @@ import {readFileSync} from 'node:fs';
 import {runInNewContext} from 'node:vm';
 import * as routeSheet from './dist/route-sheet.js';
 import {quizLetter,routePages,stepNumbers,createPDF,junctionLayoutKey,mirroredJunctionLayoutKey,junctionLateralBias} from './dist/route-sheet.js';
-import {elements,blankRoute,validateRoute,pageCount,documentPageCount,routeTechniques,stepsPerPage,rotateStep,roadArms,landmarkArms,roadCount,roadArmLabel,landmarkTypes,sidedLandmarkTypes,junctionLayers,junctionOffset,junctionDiagramScale,junctionCardHeight,compassLayers,dotArrowDirections,dotArrowShapes,dotArrowShape,dotArrowLayers,eyesLayers,layerRotation,translations,translate,elementName,groupName,landmarkName,serializeRoute,parseRoute,drawSheet,drawTechniqueGuide,bridgeGeometry,parkingGeometry,waterGeometry} from './dist/route-sheet.js';
+import {elements,blankRoute,validateRoute,pageCount,documentPageCount,routeTechniques,stepsPerPage,rotateStep,roadArms,landmarkArms,roadCount,roadArmLabel,landmarkTypes,sidedLandmarkTypes,junctionLayers,junctionOffset,junctionDiagramScale,junctionCardHeight,compassLayers,clockLayers,dotArrowDirections,dotArrowShapes,dotArrowShape,dotArrowLayers,eyesLayers,layerRotation,translations,translate,elementName,groupName,landmarkName,serializeRoute,parseRoute,drawSheet,drawTechniqueGuide,bridgeGeometry,parkingGeometry,waterGeometry} from './dist/route-sheet.js';
 
 const lucide=createRequire(import.meta.url)('./dist/vendor/lucide.js');
 for(const name of ['Signpost','Moon','Sun','Undo2','FilePlus2','FileUp','FileJson2','FileDown','FileText','ListOrdered','Copy','ArrowUp','Navigation','Route','Compass','Divide','ArrowLeft','Flag','ArrowUpRight','Camera','Plus','Check','Trash2','RotateCcw','RotateCw','ArrowDown','ChevronDown','Settings2','X'])assert.ok(lucide[name],`Missing Lucide icon: ${name}`);
@@ -50,6 +50,11 @@ const compassRoute={...blankRoute(),steps:[{technique:'compass',bearing:237,note
 assert.deepEqual(validateRoute(compassRoute),compassRoute,'A compass bearing must be a complete route item');
 assert.deepEqual(parseRoute(serializeRoute(compassRoute)),compassRoute,'Compass items must survive export and import');
 for(const bearing of [-1,360,1.5,'90',null])assert.throws(()=>validateRoute({...compassRoute,steps:[{...compassRoute.steps[0],bearing}]}));
+const clockRoute={...blankRoute(),steps:[{technique:'clock',time:'15:30',note:'Draw the hands',distance:''}]};
+assert.deepEqual(validateRoute(clockRoute),clockRoute,'A clock time must be a complete route item');
+assert.deepEqual(parseRoute(serializeRoute(clockRoute)),clockRoute,'Clock items must survive export and import');
+for(const time of ['24:00','15:60','3:30',90,null])assert.throws(()=>validateRoute({...clockRoute,steps:[{...clockRoute.steps[0],time}]}));
+assert.equal(clockLayers().length,3,'A clock must render as an empty face with hour marks and a centre dot');
 assert.throws(()=>validateRoute({...compassRoute,steps:[{...compassRoute.steps[0],technique:'unknown'}]}));
 assert.notEqual(compassLayers(0).at(-1).path,compassLayers(90).at(-1).path,'The compass arrow must follow the selected bearing');
 assert.ok(compassLayers(359).every(layer=>Number.isFinite(layer.width)&&layer.color==='#000000'),'Compass lines must use the route ink color');

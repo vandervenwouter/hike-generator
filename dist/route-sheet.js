@@ -112,7 +112,7 @@ export const translations = {
     'arm.Centre':'Middle of road',
     'element.Turn back':'Turn back',
     'group.Angled side road':'Angled side road','group.Angled T-junction':'Angled T-junction','group.Skewed crossroads':'Skewed crossroads',
-    'technique.quiz':'Quiz question','technique.input':'Free text','technique.photo':'Photo','input.value':'Text','step.numbered':'Count in step numbering','step.unnumbered':'without a number','input.placeholder':'e.g. 52.0907, 5.1214 or cross the zebra crossing','guide.input':'Enter free text, such as coordinates or an instruction.','photo.file':'Choose a PNG or JPG photo','photo.change':'Replace photo','photo.width':'Width in PDF','photo.fullWidth':'full width','photo.placeholder':'Choose a PNG or JPG photo','photo.invalid':'Choose a PNG or JPG photo.','guide.photo':'Use a photo as the route instruction.','quiz.question':'Question','quiz.questionPlaceholder':'e.g. How many legs does a spider have?','quiz.answer':'Answer {letter}','quiz.addAnswer':'Add answer','quiz.removeAnswer':'Remove answer {letter}','quiz.answers':'{count} answers','quiz.required':'Enter a question and fill in every answer.','guide.quiz':'Answer the question. The first road on your left is A; continue clockwise with B, C, D, etc. Take the road matching your answer. Count the road you arrived on last.',
+    'technique.clock':'Clock','time':'Time','technique.quiz':'Quiz question','guide.clock':'First draw the clock hands for the given time. Point the short hand north; the long hand shows your walking direction.','technique.input':'Free text','technique.photo':'Photo','input.value':'Text','step.numbered':'Count in step numbering','step.unnumbered':'without a number','input.placeholder':'e.g. 52.0907, 5.1214 or cross the zebra crossing','guide.input':'Enter free text, such as coordinates or an instruction.','photo.file':'Choose a PNG or JPG photo','photo.change':'Replace photo','photo.width':'Width in PDF','photo.fullWidth':'full width','photo.placeholder':'Choose a PNG or JPG photo','photo.invalid':'Choose a PNG or JPG photo.','guide.photo':'Use a photo as the route instruction.','quiz.question':'Question','quiz.questionPlaceholder':'e.g. How many legs does a spider have?','quiz.answer':'Answer {letter}','quiz.addAnswer':'Add answer','quiz.removeAnswer':'Remove answer {letter}','quiz.answers':'{count} answers','quiz.required':'Enter a question and fill in every answer.','guide.quiz':'Answer the question. The first road on your left is A; continue clockwise with B, C, D, etc. Take the road matching your answer. Count the road you arrived on last.',
     'meta.title':'hike-generator — Hike route builder','meta.description':'Build a hiking route one intersection at a time. Create clear, illustrated instructions and print your route on A4.',
     'brand.builder':'ROUTE BUILDER','language':'Language','darkMode':'Use dark mode','lightMode':'Use light mode','undo':'Undo','newRoute':'New route','exportRoute':'Export route','importRoute':'Import route','routeExported':'Route file downloaded','routeImported':'Route imported','routeImportFailed':'Could not import route. {error}','downloadPdf':'Download PDF','preparingPdf':'Preparing PDF…',
     'building.title':'Add step','addRouteItem':'Add step','insertRouteItem':'Add step after step {number}','insertRouteItemBefore':'Add step before step {number}','close':'Close','technique':'Route technique','technique.junction':'Situation sketch','technique.compass':'Compass bearing','technique.fraction':'Fractions','technique.dot-arrow':'Dot and arrow','technique.eyes':'Eyes','element.Hairpin left':'Hairpin left','element.Hairpin right':'Hairpin right','element.S-bend left':'S-bend left','element.S-bend right':'S-bend right','direction.0':'Go straight','direction.45':'Slight right','direction.90':'Turn right','direction.135':'Hard right','direction.180':'Turn back','direction.225':'Hard left','direction.270':'Turn left','direction.315':'Slight left','bearing':'Bearing','bearingLabel':'Bearing for step {number} in degrees','numerator':'Numerator','denominator':'Denominator','fractionLabel':'Fraction for step {number}','addCompass':'Add','roadCount':'Number of roads','roadCountOption':'{count} roads','roadLayout':'Road layout','junctionShape':'Junction shape','routeExit':'Choose the road to take','direction':'Your direction','roadEdges':'Road edges','approachHelp':'The dot marks where you enter the junction. Follow the arrow to your exit.',
@@ -133,7 +133,7 @@ export const translations = {
     'arm.Centre':'Midden van de weg',
     'element.Turn back':'Omkeren',
     'group.Angled side road':'Schuine zijweg','group.Angled T-junction':'Schuine T-splitsing','group.Skewed crossroads':'Schuin kruispunt',
-    'technique.quiz':'Quizvraag','technique.input':'Vrije tekst','technique.photo':'Foto','input.value':'Tekst','step.numbered':'Meetellen in stapnummering','step.unnumbered':'zonder nummer','input.placeholder':'bijv. 52.0907, 5.1214 of steek het zebrapad over','guide.input':'Vul vrije tekst in, bijvoorbeeld coördinaten of een instructie.','photo.file':'Kies een PNG- of JPG-foto','photo.change':'Foto vervangen','photo.width':'Breedte in PDF','photo.fullWidth':'volledige breedte','photo.placeholder':'Kies een PNG- of JPG-foto','photo.invalid':'Kies een PNG- of JPG-foto.','guide.photo':'Gebruik een foto als route-instructie.','quiz.question':'Vraag','quiz.questionPlaceholder':'bijv. Hoeveel poten heeft een spin?','quiz.answer':'Antwoord {letter}','quiz.addAnswer':'Antwoord toevoegen','quiz.removeAnswer':'Antwoord {letter} verwijderen','quiz.answers':'{count} antwoorden','quiz.required':'Vul de vraag en alle antwoorden in.','guide.quiz':'Beantwoord de vraag. De eerste weg aan je linkerhand is A; ga met de klok mee verder met B, C, D, enz. Neem de weg van jouw antwoord. De aankomstweg telt als laatste mee.',
+    'technique.clock':'Klok','time':'Tijd','technique.quiz':'Quizvraag','guide.clock':'Teken eerst zelf de wijzers bij de gegeven tijd. Richt de kleine wijzer naar het noorden; de grote wijzer geeft je looprichting aan.','technique.input':'Vrije tekst','technique.photo':'Foto','input.value':'Tekst','step.numbered':'Meetellen in stapnummering','step.unnumbered':'zonder nummer','input.placeholder':'bijv. 52.0907, 5.1214 of steek het zebrapad over','guide.input':'Vul vrije tekst in, bijvoorbeeld coördinaten of een instructie.','photo.file':'Kies een PNG- of JPG-foto','photo.change':'Foto vervangen','photo.width':'Breedte in PDF','photo.fullWidth':'volledige breedte','photo.placeholder':'Kies een PNG- of JPG-foto','photo.invalid':'Kies een PNG- of JPG-foto.','guide.photo':'Gebruik een foto als route-instructie.','quiz.question':'Vraag','quiz.questionPlaceholder':'bijv. Hoeveel poten heeft een spin?','quiz.answer':'Antwoord {letter}','quiz.addAnswer':'Antwoord toevoegen','quiz.removeAnswer':'Antwoord {letter} verwijderen','quiz.answers':'{count} antwoorden','quiz.required':'Vul de vraag en alle antwoorden in.','guide.quiz':'Beantwoord de vraag. De eerste weg aan je linkerhand is A; ga met de klok mee verder met B, C, D, enz. Neem de weg van jouw antwoord. De aankomstweg telt als laatste mee.',
     'meta.title':'hike-generator — Wandelroutebouwer','meta.description':'Bouw stap voor stap een wandelroute met duidelijke kruispunttekeningen en print deze op A4.',
     'brand.builder':'ROUTEBOUWER','language':'Taal','darkMode':'Donkere modus gebruiken','lightMode':'Lichte modus gebruiken','undo':'Ongedaan maken','newRoute':'Nieuwe route','exportRoute':'Route exporteren','importRoute':'Route importeren','routeExported':'Routebestand gedownload','routeImported':'Route geïmporteerd','routeImportFailed':'Route kon niet worden geïmporteerd. {error}','downloadPdf':'PDF downloaden','preparingPdf':'PDF voorbereiden…',
     'building.title':'Stap toevoegen','addRouteItem':'Stap toevoegen','insertRouteItem':'Stap toevoegen na stap {number}','insertRouteItemBefore':'Stap toevoegen vóór stap {number}','close':'Sluiten','technique':'Routetechniek','technique.junction':'Kruispunten','technique.compass':'Graden schieten','technique.fraction':'Breuken','technique.dot-arrow':'Bolletje-pijltje','technique.eyes':'Oogjes','element.Hairpin left':'Haarspeld links','element.Hairpin right':'Haarspeld rechts','element.S-bend left':'S-bocht links','element.S-bend right':'S-bocht rechts','direction.0':'Rechtdoor','direction.45':'Schuin rechts','direction.90':'Rechtsaf','direction.135':'Scherp rechts','direction.180':'Terug','direction.225':'Scherp links','direction.270':'Linksaf','direction.315':'Schuin links','bearing':'Koers in graden','bearingLabel':'Koers van stap {number} in graden','numerator':'Teller','denominator':'Noemer','fractionLabel':'Breuk bij stap {number}','addCompass':'Toevoegen','roadCount':'Aantal wegen','roadCountOption':'{count} wegen','roadLayout':'Weg-layout','junctionShape':'Kruispuntvorm','routeExit':'Te nemen weg','direction':'Jouw richting','roadEdges':'Wegkanten','approachHelp':'De stip geeft aan waar je het kruispunt opkomt. Volg de pijl naar de uitgang.',
@@ -513,6 +513,17 @@ export function compassLayers(bearing=0){
     {path:`M${left.x} ${left.y}L${tip.x} ${tip.y}L${right.x} ${right.y}`,width:4,color:lineColor,cap:'round'},
   ];
 }
+export function clockLayers(){
+  const ticks=Array.from({length:12},(_,index)=>{
+    const angle=(index*30-90)*Math.PI/180, inner=index%3===0?37:39;
+    return `M${(50+Math.cos(angle)*inner).toFixed(2)} ${(50+Math.sin(angle)*inner).toFixed(2)}L${(50+Math.cos(angle)*44).toFixed(2)} ${(50+Math.sin(angle)*44).toFixed(2)}`;
+  }).join('');
+  return [
+    {path:'M50 6A44 44 0 1 1 49.99 6',width:2.5,color:lineColor},
+    {path:ticks,width:2,color:lineColor},
+    {path:'M47 50a3 3 0 1 0 6 0a3 3 0 1 0-6 0',width:0,color:lineColor,fill:lineColor},
+  ];
+}
 export const rotateStep = (step,degrees) => {step.rotation=((step.rotation??0)+degrees+360)%360;};
 export const blankRoute = () => ({title:'',start:'',finish:'',includeTechniqueExplanation:false,includeCredits:true,steps:[]});
 export const stepsPerPage = 15;
@@ -595,6 +606,10 @@ export function validateRoute(value){
     if(step.technique==='fraction'){
       if(!Number.isInteger(step.numerator)||!Number.isInteger(step.denominator)||step.numerator<1||step.denominator<2||step.denominator>99||step.numerator>step.denominator)throw Error('Choose a valid fraction.');
       return {technique:'fraction',numerator:step.numerator,denominator:step.denominator,note:step.note,distance:step.distance};
+    }
+    if(step.technique==='clock'){
+      if(typeof step.time!=='string'||!/^([01]\d|2[0-3]):[0-5]\d$/.test(step.time))throw Error('Choose a time in 24-hour format.');
+      return {technique:'clock',time:step.time,note:step.note,distance:step.distance};
     }
     if(step.technique==='quiz'){
       if(typeof step.question!=='string'||step.question.length>160||!Array.isArray(step.answers)||step.answers.length<2||step.answers.length>6||Array.from(step.answers).some(answer=>typeof answer!=='string'||answer.length>80))throw Error('Enter a question and 2 to 6 answers.');
@@ -684,7 +699,7 @@ export function drawTechniqueGuide(canvas,route,scale=3,Path=Path2D,language='en
     else{
       const size=Math.min(44,height-4);ctx.translate(40-size/2,y+(height-size)/2);ctx.scale(size/100,size/100);
       if(technique==='junction'||technique==='dot-arrow'){const element=technique==='dot-arrow'?dotArrowShape(step.element):elements.find(element=>element.id===step.element),offset=technique==='junction'?junctionOffset(element,step.landmarks):{x:0,y:0};ctx.translate(50,50);ctx.rotate((step.rotation??0)*Math.PI/180);ctx.translate(-50+offset.x,-50+offset.y);drawLayers(ctx,Path,technique==='dot-arrow'?dotArrowLayers(element):junctionLayers(element,step.landmarks,step.faintArms),step.rotation??0);}
-      else drawLayers(ctx,Path,technique==='eyes'?eyesLayers(step.rotation):compassLayers(step.bearing));
+      else drawLayers(ctx,Path,technique==='eyes'?eyesLayers(step.rotation):technique==='compass'?compassLayers(step.bearing):clockLayers());
     }
     ctx.restore();ctx.textAlign='left';ctx.textBaseline='top';
     text(translate(language,`technique.${technique}`),70,y+4,4,700,'#000000',112,1);
@@ -725,7 +740,7 @@ export function drawSheet(canvas,route,pageIndex,scale=3,Path=Path2D,language='e
     let column=0;
     cards.forEach(({step,note,lines,height},index)=>{
       const number=numbers[start+index];
-      const quiz=step.technique==='quiz',input=step.technique==='input',photo=step.technique==='photo',compass=step.technique==='compass',fraction=step.technique==='fraction',dotArrow=step.technique==='dot-arrow',eyes=step.technique==='eyes',junction=!step.technique||step.technique==='junction',e=quiz||input||photo||compass||fraction||eyes?null:dotArrow?dotArrowShape(step.element):elements.find(e=>e.id===step.element),x=14+column*62,width=stepColumns(step)*62-4;
+      const quiz=step.technique==='quiz',input=step.technique==='input',photo=step.technique==='photo',compass=step.technique==='compass',clock=step.technique==='clock',fraction=step.technique==='fraction',dotArrow=step.technique==='dot-arrow',eyes=step.technique==='eyes',junction=!step.technique||step.technique==='junction',e=quiz||input||photo||compass||clock||fraction||eyes?null:dotArrow?dotArrowShape(step.element):elements.find(e=>e.id===step.element),x=14+column*62,width=stepColumns(step)*62-4;
       column+=stepColumns(step);
       ctx.strokeStyle='#000000';ctx.lineWidth=.25;ctx.strokeRect(x,y,width,height);
       if(quiz){
@@ -742,6 +757,7 @@ export function drawSheet(canvas,route,pageIndex,scale=3,Path=Path2D,language='e
       }
       if(number!==null)text(`${number}.`,x+2,y+2,3.3,700);
       if(compass)text(`${step.bearing}°`,x+40,y+2,2.8,700,'#000000',16);
+      else if(clock)text(step.time,x+40,y+2,2.8,700,'#000000',16);
       else if(step.distance!=='')text(`${step.distance} m`,x+width-20,y+2,2.6,400,'#000000',18);
       if(photo){
         drawPhoto(ctx,step.image,x+2,y+7,width-4,height-15);
@@ -753,8 +769,8 @@ export function drawSheet(canvas,route,pageIndex,scale=3,Path=Path2D,language='e
       else{
         const diagramScale=junction?(note ? .28 : .36):.21;
         ctx.translate(x+29-diagramScale*50,y+(height-diagramScale*100)/2);ctx.scale(diagramScale,diagramScale);
-        if(!compass&&!eyes){const offset=junction?junctionOffset(e,step.landmarks):{x:0,y:0};ctx.translate(50,50);ctx.rotate((step.rotation??0)*Math.PI/180);ctx.translate(-50+offset.x,-50+offset.y);}
-        drawLayers(ctx,Path,compass?compassLayers(step.bearing):eyes?eyesLayers(step.rotation):dotArrow?dotArrowLayers(e):junctionLayers(e,step.landmarks,step.faintArms),step.rotation??0);
+        if(!compass&&!clock&&!eyes){const offset=junction?junctionOffset(e,step.landmarks):{x:0,y:0};ctx.translate(50,50);ctx.rotate((step.rotation??0)*Math.PI/180);ctx.translate(-50+offset.x,-50+offset.y);}
+        drawLayers(ctx,Path,compass?compassLayers(step.bearing):clock?clockLayers():eyes?eyesLayers(step.rotation):dotArrow?dotArrowLayers(e):junctionLayers(e,step.landmarks,step.faintArms),step.rotation??0);
       }
       ctx.restore();
       if(note)text(note,x+2,y+(junction?height-(lines?(lines-1)*2.7+4:4):24.2),2,400,'#000000',54,4);

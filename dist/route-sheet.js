@@ -21,8 +21,8 @@ export const elements = [
   {id:'side-right-straight',group:'Side road',name:'Pass right road',roads:'M50 10V90M50 50H90',route:'M50 84V18',...arrowAt(50,18,270)},
   {id:'side-left-turn',group:'Side road',name:'Turn left',roads:'M50 10V90M10 50H50',route:'M50 84V50H18',...arrowAt(18,50,180)},
   {id:'side-right-turn',group:'Side road',name:'Turn right',roads:'M50 10V90M50 50H90',route:'M50 84V50H82',...arrowAt(82,50,0)},
-  {id:'bend-left',group:'Bends & paths',name:'Bend left',roads:'M50 90V60Q50 35 25 35H0',route:'M50 84V60Q50 35 25 35H18',...arrowAt(18,35,180)},
-  {id:'bend-right',group:'Bends & paths',name:'Bend right',roads:'M50 90V60Q50 35 75 35H100',route:'M50 84V60Q50 35 75 35H82',...arrowAt(82,35,0)},
+  {id:'bend-left',group:'Bends & paths',name:'Bend left',roads:'M50 90V60C50 46.2 38.8 35 25 35H0',route:'M50 84V60C50 46.2 38.8 35 25 35H18',...arrowAt(18,35,180)},
+  {id:'bend-right',group:'Bends & paths',name:'Bend right',roads:'M50 90V60C50 46.2 61.2 35 75 35H100',route:'M50 84V60C50 46.2 61.2 35 75 35H82',...arrowAt(82,35,0)},
   {id:'straight',group:'Bends & paths',name:'Go straight',roads:'M50 10V90',route:'M50 84V18',...arrowAt(50,18,270)},
   {id:'turn-back',group:'Bends & paths',name:'Turn back',roads:'M50 10V90',route:'M50 84Q44 84 44 76V30A5.5 5.5 0 0 1 55 30V74',...arrowAt(55,74,90)},
   angledElement('angled-side-left-straight','Angled side road','Pass left road',[90,225,270],2),
@@ -336,8 +336,8 @@ function roadPath(element,armId){
   if(element.id.startsWith('fork-'))return {approach:'M50 90V55',left:'M50 55L18 18',right:'M50 55L82 18'}[armId];
   if(element.id.startsWith('side-left-'))return {approach:'M50 90V50',left:'M10 50H50',ahead:'M50 50V10'}[armId];
   if(element.id.startsWith('side-right-'))return {approach:'M50 90V50',ahead:'M50 50V10',right:'M50 50H90'}[armId];
-  if(element.id==='bend-left')return {approach:'M50 90V60Q50 35 25 35',left:'M25 35H0'}[armId];
-  if(element.id==='bend-right')return {approach:'M50 90V60Q50 35 75 35',right:'M75 35H100'}[armId];
+  if(element.id==='bend-left')return {approach:'M50 90V60C50 46.2 38.8 35 25 35',left:'M25 35H0'}[armId];
+  if(element.id==='bend-right')return {approach:'M50 90V60C50 46.2 61.2 35 75 35',right:'M75 35H100'}[armId];
   if(element.id==='straight'||element.id==='turn-back')return {approach:'M50 90V50',ahead:'M50 50V10',centre:'M50 90V10'}[armId];
 }
 function staticRoadEdgePaths(element,armId){
@@ -346,11 +346,11 @@ function staticRoadEdgePaths(element,armId){
   }
   if(element.id==='bend-left'){
     if(armId==='left')return ['M25 24H0','M25 46H0'];
-    return ['M61 90V60Q61 35 75 24H0','M39 90V60Q39 35 25 46H0'];
+    return ['M61 90V60C61 40.12 45.12 24 25 24H0','M39 90V60C39 52.27 32.73 46 25 46H0'];
   }
   if(element.id==='bend-right'){
     if(armId==='right')return ['M75 24H100','M75 46H100'];
-    return ['M61 90V60Q61 35 75 24H100','M39 90V60Q39 35 75 46H100'];
+    return ['M39 90V60C39 40.12 54.88 24 75 24H100','M61 90V60C61 52.27 67.27 46 75 46H100'];
   }
   return [];
 }

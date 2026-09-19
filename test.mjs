@@ -462,6 +462,9 @@ for(const id of ['straight','turn-back']){
   assert.ok(capFreeLayers.some(layer=>layer.road&&layer.path==='M39 10V90M61 10V90'&&layer.width===1),'Two-road edges must be redrawn as open longitudinal edges');
   assert.ok(!capFreeLayers.some(layer=>layer.path===elements.find(element=>element.id===id).roads&&layer.color==='#000000'),'Two-road edges must not retain a capped black centreline');
 }
+for(const [id,edge] of [['bend-left','M61 90V60C61 40.12 45.12 24 25 24H0'],['bend-right','M39 90V60C39 40.12 54.88 24 75 24H100']]){
+  assert.ok(junctionLayers(elements.find(element=>element.id===id)).some(layer=>layer.path===edge),'Bend edges must use the shared smooth turn geometry');
+}
 for(const element of elements){
   const roadLayers=junctionLayers(element).filter(layer=>layer.road);
   if(!['bend-left','bend-right','straight','turn-back'].includes(element.id)){

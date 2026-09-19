@@ -1,6 +1,10 @@
 {
   "name": "hike-generator",
   "private": true,
+  "scripts": {
+    "dev": "python3 -m http.server 4173 --bind 127.0.0.1 --directory dist",
+    "test": "node test.mjs"
+  },
   "dependencies": {
     "vue": "3.5.43"
   }

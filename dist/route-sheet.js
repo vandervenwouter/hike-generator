@@ -579,7 +579,7 @@ function drawPhoto(ctx,source,x,y,width,height,label='Photo'){
     const scale=Math.min(width/image.naturalWidth,height/image.naturalHeight),drawWidth=image.naturalWidth*scale,drawHeight=image.naturalHeight*scale;
     ctx.drawImage(image,x+(width-drawWidth)/2,y+(height-drawHeight)/2,drawWidth,drawHeight);return;
   }
-  ctx.strokeStyle='#000000';ctx.lineWidth=.5;ctx.strokeRect(x,y,width,height);ctx.fillStyle='#000000';ctx.font='700 3px Arial, sans-serif';ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillText(label,x+width/2,y+height/2);ctx.textAlign='left';ctx.textBaseline='top';
+  ctx.strokeStyle='#000000';ctx.lineWidth=.5;ctx.strokeRect(x,y,width,height);ctx.fillStyle='#000000';ctx.font='700 3px Arial, sans-serif';ctx.textAlign='center';ctx.textBaseline='middle';fillCanvasText(ctx,label,x+width/2,y+height/2);ctx.textAlign='left';ctx.textBaseline='top';
 }
 export function parseRoute(text){
   if(typeof text!=='string'||text.length>1_000_000)throw Error('Invalid route file.');
@@ -676,6 +676,11 @@ function wrap(ctx,text,width){
   }
   return lines;
 }
+function fillCanvasText(ctx,value,x,y){
+  if(!ctx.setTransform||!ctx.canvas?.width){ctx.fillText(value,x,y);return;}
+  const scale=ctx.canvas.width/210,font=ctx.font.replace(/(\d+(?:\.\d+)?)px/g,(_,size)=>`${Number(size)*scale}px`);
+  ctx.save();ctx.setTransform(1,0,0,1,0,0);ctx.font=font;ctx.fillText(value,x*scale,y*scale);ctx.restore();
+}
 function drawLayers(ctx,Path,layers,rotation=0){
   for(const layer of layers){
     ctx.save();ctx.translate(layer.x??0,layer.y??0);ctx.rotate(layerRotation(layer,rotation)*Math.PI/180);ctx.scale(layer.scale??1,(layer.scale??1)*(layer.scaleY??1));
@@ -686,16 +691,16 @@ function drawLayers(ctx,Path,layers,rotation=0){
 export function drawTechniqueGuide(canvas,route,scale=3,Path=Path2D,language='en'){
   canvas.width=210*scale;canvas.height=297*scale;
   const ctx=canvas.getContext('2d');ctx.scale(scale,scale);ctx.fillStyle='#fff';ctx.fillRect(0,0,210,297);ctx.textBaseline='top';ctx.lineCap='round';ctx.lineJoin='round';
-  function text(value,x,y,size=3.5,weight=400,color='#000000',width=118,maxLines=8){ctx.fillStyle='#000000';ctx.font=`${weight} ${size}px Arial, sans-serif`;wrap(ctx,value,width).slice(0,maxLines).forEach((line,i)=>ctx.fillText(line,x,y+i*size*1.35));}
+  function text(value,x,y,size=3.5,weight=400,color='#000000',width=118,maxLines=8){ctx.fillStyle='#000000';ctx.font=`${weight} ${size}px Arial, sans-serif`;wrap(ctx,value,width).slice(0,maxLines).forEach((line,i)=>fillCanvasText(ctx,line,x,y+i*size*1.35));}
   text(translate(language,'guide.title'),14,13,7,700,'#000000',182,2);
   const techniques=routeTechniques(route),stride=Math.min(70,240/techniques.length),height=stride-10;
   techniques.forEach((technique,index)=>{
     const y=37+index*stride,step=route.steps.find(item=>(item.technique??'junction')===technique);
     ctx.strokeStyle='#000000';ctx.lineWidth=.25;ctx.strokeRect(14,y,182,height);
     ctx.save();
-    if(technique==='fraction'||technique==='quiz'){ctx.fillStyle='#000000';ctx.font='700 12px Arial, sans-serif';ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillText(technique==='quiz'?'A B C':`${step.numerator}/${step.denominator}`,40,y+height/2);}
+    if(technique==='fraction'||technique==='quiz'){ctx.fillStyle='#000000';ctx.font='700 12px Arial, sans-serif';ctx.textAlign='center';ctx.textBaseline='middle';fillCanvasText(ctx,technique==='quiz'?'A B C':`${step.numerator}/${step.denominator}`,40,y+height/2);}
     else if(technique==='photo'){const photoSize=Math.min(36,height-4);drawPhoto(ctx,step.image,40-photoSize/2,y+height/2-photoSize/2,photoSize,photoSize);}
-    else if(technique==='input'){ctx.strokeStyle='#000000';ctx.lineWidth=1;ctx.strokeRect(22,y+height/2-6,36,12);ctx.fillStyle='#000000';ctx.font='700 8px Arial, sans-serif';ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillText('Aa',40,y+height/2);}
+    else if(technique==='input'){ctx.strokeStyle='#000000';ctx.lineWidth=1;ctx.strokeRect(22,y+height/2-6,36,12);ctx.fillStyle='#000000';ctx.font='700 8px Arial, sans-serif';ctx.textAlign='center';ctx.textBaseline='middle';fillCanvasText(ctx,'Aa',40,y+height/2);}
     else{
       const size=Math.min(44,height-4);ctx.translate(40-size/2,y+(height-size)/2);ctx.scale(size/100,size/100);
       if(technique==='junction'||technique==='dot-arrow'){const element=technique==='dot-arrow'?dotArrowShape(step.element):elements.find(element=>element.id===step.element),offset=technique==='junction'?junctionOffset(element,step.landmarks):{x:0,y:0};ctx.translate(50,50);ctx.rotate((step.rotation??0)*Math.PI/180);ctx.translate(-50+offset.x,-50+offset.y);drawLayers(ctx,Path,technique==='dot-arrow'?dotArrowLayers(element):junctionLayers(element,step.landmarks,step.faintArms),step.rotation??0);}
@@ -720,7 +725,7 @@ export function drawSheet(canvas,route,pageIndex,scale=3,Path=Path2D,language='e
     let lines=wrap(ctx,value,width);
     while(lines.length>maxLines&&size>minSize){size-=.2;ctx.font=`${weight} ${size}px Arial, sans-serif`;lines=wrap(ctx,value,width);}
     lines=lines.slice(0,maxLines);
-    lines.forEach((line,i)=>ctx.fillText(line,x,y+i*size*1.35));
+    lines.forEach((line,i)=>fillCanvasText(ctx,line,x,y+i*size*1.35));
   }
   function rule(x,y,w,color='#000000'){ctx.strokeStyle='#000000';ctx.lineWidth=.25;ctx.beginPath();ctx.moveTo(x,y);ctx.lineTo(x+w,y);ctx.stroke();}
   function endpoint(label,note,y){const top=ctx.textBaseline,baseline=y+3.4;ctx.textBaseline='alphabetic';text(label,14,baseline,2.8,700);if(note.trim())text(note.replace(/\s+/g,' '),26,baseline,3.4,400,'#000000',170,2);ctx.textBaseline=top;}
@@ -765,7 +770,7 @@ export function drawSheet(canvas,route,pageIndex,scale=3,Path=Path2D,language='e
         return;
       }
       ctx.save();
-      if(fraction){ctx.fillStyle='#000000';ctx.font='700 8px Arial, sans-serif';ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillText(`${step.numerator}/${step.denominator}`,x+29,y+12.5);}
+      if(fraction){ctx.fillStyle='#000000';ctx.font='700 8px Arial, sans-serif';ctx.textAlign='center';ctx.textBaseline='middle';fillCanvasText(ctx,`${step.numerator}/${step.denominator}`,x+29,y+12.5);}
       else{
         const diagramScale=junction?(note ? .28 : .36):.21;
         ctx.translate(x+29-diagramScale*50,y+(height-diagramScale*100)/2);ctx.scale(diagramScale,diagramScale);

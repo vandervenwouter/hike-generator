@@ -339,10 +339,12 @@ assert.deepEqual(routeTechniques(guideRoute),['junction','compass','fraction','d
 assert.equal(documentPageCount(guideRoute),2,'The technique guide must add one A4 page');
 assert.deepEqual(parseRoute(serializeRoute(guideRoute)),guideRoute,'The PDF option must survive export and import');
 const guideRects=[];
+const guidePrintedStart=printed.length;
 drawTechniqueGuide({getContext:()=>({...ctx,strokeRect(...args){guideRects.push(args)}})},guideRoute,1,class{});
+const guidePrinted=printed.slice(guidePrintedStart);
 assert.equal(guideRects.length,8);
 assert.ok(guideRects.every(([,y,,height])=>y+height<281),'All six explanations must fit above the A4 footer');
-assert.ok(printed.includes('Quiz question')&&printed.some(value=>value.includes('clockwise')),'The guide must explain how quiz answers map to roads');
+assert.ok(guidePrinted.includes('Quiz question')&&guidePrinted.some(value=>value.includes('clockwise')),'The guide must explain how quiz answers map to roads');
 drawSheet({getContext:()=>ctx},guideRoute,0,1,class{});
 assert.ok(printed.includes('Route technique guide')&&printed.includes('Situation sketch')&&printed.includes('Compass bearing')&&printed.includes('Fractions')&&printed.includes('Dot and arrow')&&printed.includes('Eyes')&&!printed.includes('Free text')&&printed.includes('Photo'),'The guide must explain every used technique except free text');
 assert.ok(printed.includes('PAGE 1 / 2')&&printed.includes('PAGE 2 / 2'),'Guide and route pages must share continuous page numbers');
@@ -406,6 +408,10 @@ assert.equal(roadArmLabel(right,90),'Bottom road','Placement labels must follow 
 assert.equal(translate('nl','downloadPdf'),'PDF downloaden');
 assert.equal(translate('nl','importRoute'),'Route importeren als JSON');
 assert.equal(translate('nl','exportRoute'),'Route exporteren als JSON');
+assert.equal(translate('en','input.placeholder'),'e.g. cross the zebra crossing');
+assert.equal(translate('nl','input.placeholder'),'bijv. steek het zebrapad over');
+assert.equal(translate('en','notePlaceholder'),'e.g. Cross at the zebra crossing');
+assert.equal(translate('nl','notePlaceholder'),'bijv. Oversteken via het zebrapad');
 assert.equal(translate('en','pdf.credits'),'created with hike-generator by Wouter van der Ven');
 assert.equal(translate('nl','pdf.credits'),'Gemaakt met https://vandervenwouter.github.io/hike-generator');
 assert.ok(!Object.hasOwn(translations.nl,'darkMode')&&!Object.hasOwn(translations.nl,'lightMode'),'Theme-toggle translations must be removed');
@@ -856,16 +862,26 @@ for(const count of [3,4,5]){
 
 const appSource = readFileSync('dist/app.js', 'utf8');
 const indexSource = readFileSync('dist/index.html', 'utf8');
+const routeSheetSource = readFileSync('dist/route-sheet.js', 'utf8');
 const styleSource = readFileSync('dist/style.css', 'utf8');
 for (const component of ['RoadTypeEditor', 'LandmarkEditor', 'StepCard', 'RouteEditor', 'Toolbar', 'StepLibrary', 'PreviewPanel', 'App']) {
   assert.match(appSource, new RegExp(`const ${component} = defineComponent`), `${component} component is missing`);
 }
 assert.match(appSource, /createApp\(App\)\.mount\('#app'\)/);
-assert.match(indexSource, /<html lang="en" data-theme="dark">/,'Dark styling must be active before the app starts');
+assert.doesNotMatch(appSource, /filter\(count => count < 6\)/,'The six-way intersection must remain available in the picker');
+assert.doesNotMatch(indexSource, /data-theme|theme-toggle|toggle-theme/,'Theme state must not be present in the document');
 assert.match(indexSource, /<meta name="theme-color" content="#101612">/,'Browser chrome must use the fixed dark background');
 assert.doesNotMatch(appSource, /theme-toggle|toggle-theme|toggleTheme|hike-generator-theme|prefers-color-scheme|dataset\.theme|applyTheme/,'Light/dark state and controls must be removed');
+assert.doesNotMatch(appSource, /quiz-help|guide\.(clock|input|photo|quiz|stripkaart)/,'Step builder help text must not be rendered');
+assert.doesNotMatch(appSource, /<label>\{\{ t\('quiz\.question'\) \}\}<textarea/,'Quiz questions must not use a visible label wrapper');
+assert.equal((appSource.match(/data-field="question" :aria-label="t\('quiz\.question'\)"/g) ?? []).length,2,'Quiz question textareas must keep an accessible name');
+assert.doesNotMatch(appSource, /<label>\{\{ t\('input\.value'\) \}\}<input class="free-text-input"/,'The free-text builder must not show a redundant field label');
+assert.match(appSource, /id="input-value" :aria-label="t\('input\.value'\)"/,'The free-text builder input must keep an accessible name');
+assert.match(routeSheetSource, /text\(translate\(language,`guide\.\$\{technique\}`\),70,y\+11/,'PDF technique explanations must remain visible');
+assert.doesNotMatch(styleSource, /data-theme|prefers-color-scheme/,'Theme selectors must be removed from the stylesheet');
 assert.match(appSource, /<section class="landmark-editor road-type-editor"><h4 class="editor-heading">/,'Junction road types must remain visible without a details toggle');
-assert.match(appSource, /<section class="landmark-editor"><h4 class="editor-heading"><b class="stage-number">3<\/b>/,'Route elements must remain visible without a details toggle');
+assert.match(appSource, /<section class="landmark-editor"><h4 class="editor-heading">\{\{ t\('landmarks'\) \}\}<\/h4>/,'Route elements must remain visible without a step number or details toggle');
+assert.ok(appSource.indexOf('<LandmarkEditor') < appSource.indexOf('class="step-fields step-note-fields"'),'The note field must follow junction controls, as it does for every other step type');
 assert.match(appSource, /box = '0 0 100 100'/,'Junction previews must use the same drawing area and line scale as the other techniques');
 assert.match(indexSource, /<div id="app"><\/div>/);
 assert.doesNotMatch(appSource, /#element-library.*\.innerHTML|#route-steps.*\.innerHTML/);
@@ -874,7 +890,7 @@ assert.match(appSource, /data-insert-index="0"/);
 assert.match(appSource, /insertRouteItemBefore/);
 assert.doesNotMatch(appSource, /structuredClone\(draft\./,'Reactive draft values must be copied without cloning Vue proxies');
 assert.match(appSource, /class="stripkaart-layout"/,'The stripkaart builder needs a grouped editor and live preview');
-assert.match(appSource, /viewBox="0 0 100 \$\{stripkaartHeight\(points\)\}"/,'The stripkaart preview must use the shared variable arrow height');
+assert.match(appSource, /viewBox="12 0 76 \$\{stripkaartHeight\(points\)\}"/,'The stripkaart preview must use the shared variable arrow height and a tight horizontal crop');
 assert.match(appSource, /class="stripkaart-point"[^]*?<select/,'Stripkaart points must use the app\'s select controls');
 assert.equal((appSource.match(/v-for="count in \[0, 1, 2, 3, 4\]"/g)??[]).length,4,'Both stripkaart editors must limit left and right side roads to four');
 assert.match(appSource, /field: 'stripkaart-point-faint'/,'Stripkaart side roads must expose faint-path controls');
@@ -883,7 +899,7 @@ assert.equal((appSource.match(/class="stripkaart-end-marker"/g)??[]).length,2,'B
 assert.match(appSource, /endMarker: draft\.stripkaartEndMarker/,'New stripkaarten must save the selected end marking');
 assert.equal((appSource.match(/class="button primary add-step-button"[^>]*data-add-/g)??[]).length,7,'Every special-technique step button must use the shared full-width style');
 assert.match(styleSource, /\.builder-stage \.add-step-button\{grid-column:1\/-1;width:100%;margin-top:14px\}/,'Step add buttons must sit below the builder content at full width');
-assert.match(styleSource, /\.stripkaart-layout\{display:grid;grid-template-columns:minmax\(170px,200px\) minmax\(0,1fr\);gap:16px;align-items:stretch/,'The large stripkaart preview must occupy a dedicated left column');
+assert.match(styleSource, /\.stripkaart-layout\{display:grid;grid-template-columns:144px minmax\(0,1fr\);gap:12px;align-items:stretch/,'The stripkaart preview must leave enough width for its controls');
 assert.match(styleSource, /\.step-card \.junction\{[^}]*background:#fff/,'Step preview tiles must use a white background');
 assert.match(styleSource, /\.element-grid\{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px\}/);
 assert.match(appSource, /https:\/\/www\.linkedin\.com\/in\/wouter-van-der-ven\//);

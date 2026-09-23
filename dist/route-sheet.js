@@ -89,7 +89,7 @@ for(let mask=0;mask<1<<gridExits.length;mask++){
 }
 const lineColor='#000000',bridgeMarkerScale=.55;
 export const landmarkTypes = [
-  {id:'bridge',name:'Bridge',fixedSize:true,scale:bridgeMarkerScale,over:'M-10 -27V-23H10V-27M-10 27V23H10V27'},
+  {id:'bridge',name:'Bridge',fixedSize:true,scale:bridgeMarkerScale,over:'M-16 -30L-11 -25H11L16 -30M-16 30L-11 25H11L16 30'},
   {id:'parking',name:'Parking area',upright:true,fixedSize:true,offset:24,under:[{path:'M-10.8-12H10.8Q12-12 12-10.8V10.8Q12 12 10.8 12H-10.8Q-12 12-12 10.8V-10.8Q-12-12-10.8-12Z',width:0,color:lineColor,fill:lineColor}],over:[{path:'M.06-.45C2.77-.45 3.32-1.77 3.32-2.82C3.32-3.94 2.88-5.26.06-5.26H-2.94V-.45ZM-2.94 8.66H-6.1V-8.36H1.12C4.55-8.36 6.53-6.01 6.53-2.91C6.53-.23 4.89 2.51 1.14 2.51H-2.94Z',width:0,color:'#fff',fill:'#fff'}]},
   {id:'bridleway',name:'Bridleway',upright:true,fixedSize:true,along:16,approachAlong:20,over:[
     {path:'M 0 -14 A 14 14 0 1 1 0 14 A 14 14 0 1 1 0 -14 Z',width:0,scale:.75,color:'#fff',fill:'#fff',skipDiagonalRoute:true},
@@ -114,14 +114,14 @@ export const translations = {
     'group.Angled side road':'Angled side road','group.Angled T-junction':'Angled T-junction','group.Skewed crossroads':'Skewed crossroads',
     'technique.clock':'Clock','time':'Time','technique.quiz':'Quiz question','guide.clock':'First draw the clock hands for the given time. Point the short hand north; the long hand shows your walking direction.','technique.input':'Free text','technique.photo':'Photo','input.value':'Text','step.numbered':'Count in step numbering','step.unnumbered':'without a number','input.placeholder':'e.g. 52.0907, 5.1214 or cross the zebra crossing','guide.input':'Enter free text, such as coordinates or an instruction.','photo.file':'Choose a PNG or JPG photo','photo.change':'Replace photo','photo.width':'Width in PDF','photo.fullWidth':'full width','photo.placeholder':'Choose a PNG or JPG photo','photo.invalid':'Choose a PNG or JPG photo.','guide.photo':'Use a photo as the route instruction.','quiz.question':'Question','quiz.questionPlaceholder':'e.g. How many legs does a spider have?','quiz.answer':'Answer {letter}','quiz.addAnswer':'Add answer','quiz.removeAnswer':'Remove answer {letter}','quiz.answers':'{count} answers','quiz.required':'Enter a question and fill in every answer.','guide.quiz':'Answer the question. The first road on your left is A; continue clockwise with B, C, D, etc. Take the road matching your answer. Count the road you arrived on last.',
     'meta.title':'hike-generator — Hike route builder','meta.description':'Build a hiking route one intersection at a time. Create clear, illustrated instructions and print your route on A4.',
-    'brand.builder':'ROUTE BUILDER','language':'Language','darkMode':'Use dark mode','lightMode':'Use light mode','undo':'Undo','newRoute':'New route','exportRoute':'Export route','importRoute':'Import route','routeExported':'Route file downloaded','routeImported':'Route imported','routeImportFailed':'Could not import route. {error}','downloadPdf':'Download PDF','preparingPdf':'Preparing PDF…',
+    'brand.builder':'ROUTE BUILDER','language':'Language','undo':'Undo','newRoute':'New route','exportRoute':'Export route as JSON','importRoute':'Import route as JSON','routeExported':'Route file downloaded','routeImported':'Route imported','routeImportFailed':'Could not import route. {error}','downloadPdf':'Download PDF','preparingPdf':'Preparing PDF…',
     'building.title':'Add step','addRouteItem':'Add step','insertRouteItem':'Add step after step {number}','insertRouteItemBefore':'Add step before step {number}','close':'Close','technique':'Route technique','technique.junction':'Situation sketch','technique.compass':'Compass bearing','technique.fraction':'Fractions','technique.dot-arrow':'Dot and arrow','technique.eyes':'Eyes','element.Hairpin left':'Hairpin left','element.Hairpin right':'Hairpin right','element.S-bend left':'S-bend left','element.S-bend right':'S-bend right','direction.0':'Go straight','direction.45':'Slight right','direction.90':'Turn right','direction.135':'Hard right','direction.180':'Turn back','direction.225':'Hard left','direction.270':'Turn left','direction.315':'Slight left','bearing':'Bearing','bearingLabel':'Bearing for step {number} in degrees','numerator':'Numerator','denominator':'Denominator','fractionLabel':'Fraction for step {number}','addCompass':'Add','roadCount':'Number of roads','roadCountOption':'{count} roads','roadLayout':'Road layout','junctionShape':'Junction shape','routeExit':'Choose the road to take','direction':'Your direction','roadEdges':'Road edges','approachHelp':'The dot marks where you enter the junction. Follow the arrow to your exit.',
     'routeName':'Route name','untitled':'Untitled hike','distancePrompt':'Add distances as you go','start':'START','startPlaceholder':'Start note','finish':'FINISH','finishPlaceholder':'Finish note',
     'printPreview':'Print preview A4','pdfOptions':'PDF options','includeTechniqueGuide':'Explain route techniques','printNote':'Six consistent diagrams per A4 sheet. Numbered automatically, ready to print.','printableRoute':'Printable route','intersectionLibrary':'Step library','routeEditor':'Route editor',
     'step':'step','steps':'steps','page':'page','pages':'pages','distanceTotal':'{distance} m of noted distances','added':'Step {number} added','duplicated':'Step {number} duplicated','removed':'Step removed.','undone':'Last change undone','newReady':'New route started.','newConfirm':'Start a new route? The current route will be removed.','pdfReady':'Your A4 route sheet is ready','pdfFailed':'Could not create the PDF. {error}','saveFailed':'Your browser could not save this draft. Download your PDF before leaving.','loadFailed':'The saved draft could not be loaded. This route is temporary.','stepLimit':'A route can contain up to 300 steps.',
     'moveUp':'Move step {number} up','moveDown':'Move step {number} down','duplicateStep':'Duplicate step {number}','removeStep':'Remove step {number}','distance':'Distance (m)','distancePlaceholder':'e.g. 200','distanceLabel':'Distance to step {number} in metres','note':'Landmark or note','notePlaceholder':'e.g. After the wooden bridge','noteLabel':'Note for step {number}',
     'rotateLeft':'Rotate step {number} counterclockwise by 45 degrees','rotateRight':'Rotate step {number} clockwise by 45 degrees','rotation':'Rotation {degrees} degrees','rotateLeftTitle':'Rotate 45° counterclockwise','rotateRightTitle':'Rotate 45° clockwise',
-    'roadTypes':'Road types','standardRoads':'Regular roads','faintPath':'Faint path','markFaintPath':'Mark {road} as a faint path','landmarks':'Landmarks','add':'Add','item':'Item','roadArm':'Road arm','position':'Position','side.left':'Left side of road','side.right':'Right side of road','itemLabel':'Item for landmark {landmark} on step {step}','armLabel':'Road arm for landmark {landmark} on step {step}','positionLabel':'Position for landmark {landmark} on step {step}','removeLandmark':'Remove landmark {landmark} from step {step}','addLandmark':'Add landmark','landmarkHelp':'Place one element on the road and one on each side.',
+    'roadTypes':'Road types','faintPath':'Faint path','markFaintPath':'Mark {road} as a faint path','landmarks':'Landmarks','add':'Add','item':'Item','roadArm':'Road arm','position':'Position','side.left':'Left side of road','side.right':'Right side of road','itemLabel':'Item for landmark {landmark} on step {step}','armLabel':'Road arm for landmark {landmark} on step {step}','positionLabel':'Position for landmark {landmark} on step {step}','removeLandmark':'Remove landmark {landmark} from step {step}','addLandmark':'Add landmark',
     'guide.title':'Route technique guide','guide.junction':'Enter the junction at the dot and follow the arrow to the correct exit.','guide.dot-arrow':'Follow the line from the dot to the arrow. Read it relative to your walking direction: up means straight ahead.','guide.eyes':'Walk in the direction the eyes are looking. Read it relative to your walking direction: looking up means straight ahead, looking down means turn back.','guide.compass':'Follow the given compass bearing. 0° is north, 90° east, 180° south and 270° west.','guide.fraction':'The numerator selects the road; the denominator is the total number of roads. Include the road you arrived on and count from left to right.','guide.pageLabel':'Route technique guide. {techniques}','pdf.credits':'created with hike-generator by Wouter van der Ven','pdf.page':'PAGE {page} / {pages}','pdf.noSteps':'Add a step before downloading.',
     'group.T-junction':'T-junction','group.Crossroads':'Crossroads','group.Fork':'Fork','group.Side road':'Side road','group.Bends & paths':'Bends & paths','group.4-way intersection':'4-way intersection','group.Three-way fork':'Three-way fork','group.5-way intersection':'5-way intersection','group.6-way intersection':'6-way intersection',
     'element.Turn left':'Turn left','element.Turn right':'Turn right','element.Go straight':'Go straight','element.Go straight 45° right':'Go straight 45° right','element.Go straight 45° left':'Go straight 45° left','element.Keep left':'Keep left','element.Keep right':'Keep right','element.Pass left road':'Pass left road','element.Pass right road':'Pass right road','element.Bend left':'Bend left','element.Bend right':'Bend right','element.First road right':'First road right','element.Second road right':'Second road right','element.First road left':'First road left','element.Second road left':'Second road left','element.Hard right':'Hard right','element.Slight right':'Slight right','element.Slight left':'Slight left','element.Hard left':'Hard left',
@@ -135,14 +135,14 @@ export const translations = {
     'group.Angled side road':'Schuine zijweg','group.Angled T-junction':'Schuine T-splitsing','group.Skewed crossroads':'Schuin kruispunt',
     'technique.clock':'Klok','time':'Tijd','technique.quiz':'Quizvraag','guide.clock':'Teken eerst zelf de wijzers bij de gegeven tijd. Richt de kleine wijzer naar het noorden; de grote wijzer geeft je looprichting aan.','technique.input':'Vrije tekst','technique.photo':'Foto','input.value':'Tekst','step.numbered':'Meetellen in stapnummering','step.unnumbered':'zonder nummer','input.placeholder':'bijv. 52.0907, 5.1214 of steek het zebrapad over','guide.input':'Vul vrije tekst in, bijvoorbeeld coördinaten of een instructie.','photo.file':'Kies een PNG- of JPG-foto','photo.change':'Foto vervangen','photo.width':'Breedte in PDF','photo.fullWidth':'volledige breedte','photo.placeholder':'Kies een PNG- of JPG-foto','photo.invalid':'Kies een PNG- of JPG-foto.','guide.photo':'Gebruik een foto als route-instructie.','quiz.question':'Vraag','quiz.questionPlaceholder':'bijv. Hoeveel poten heeft een spin?','quiz.answer':'Antwoord {letter}','quiz.addAnswer':'Antwoord toevoegen','quiz.removeAnswer':'Antwoord {letter} verwijderen','quiz.answers':'{count} antwoorden','quiz.required':'Vul de vraag en alle antwoorden in.','guide.quiz':'Beantwoord de vraag. De eerste weg aan je linkerhand is A; ga met de klok mee verder met B, C, D, enz. Neem de weg van jouw antwoord. De aankomstweg telt als laatste mee.',
     'meta.title':'hike-generator — Wandelroutebouwer','meta.description':'Bouw stap voor stap een wandelroute met duidelijke kruispunttekeningen en print deze op A4.',
-    'brand.builder':'ROUTEBOUWER','language':'Taal','darkMode':'Donkere modus gebruiken','lightMode':'Lichte modus gebruiken','undo':'Ongedaan maken','newRoute':'Nieuwe route','exportRoute':'Route exporteren','importRoute':'Route importeren','routeExported':'Routebestand gedownload','routeImported':'Route geïmporteerd','routeImportFailed':'Route kon niet worden geïmporteerd. {error}','downloadPdf':'PDF downloaden','preparingPdf':'PDF voorbereiden…',
+    'brand.builder':'ROUTEBOUWER','language':'Taal','undo':'Ongedaan maken','newRoute':'Nieuwe route','exportRoute':'Route exporteren als JSON','importRoute':'Route importeren als JSON','routeExported':'Routebestand gedownload','routeImported':'Route geïmporteerd','routeImportFailed':'Route kon niet worden geïmporteerd. {error}','downloadPdf':'PDF downloaden','preparingPdf':'PDF voorbereiden…',
     'building.title':'Stap toevoegen','addRouteItem':'Stap toevoegen','insertRouteItem':'Stap toevoegen na stap {number}','insertRouteItemBefore':'Stap toevoegen vóór stap {number}','close':'Sluiten','technique':'Routetechniek','technique.junction':'Kruispunten','technique.compass':'Graden schieten','technique.fraction':'Breuken','technique.dot-arrow':'Bolletje-pijltje','technique.eyes':'Oogjes','element.Hairpin left':'Haarspeld links','element.Hairpin right':'Haarspeld rechts','element.S-bend left':'S-bocht links','element.S-bend right':'S-bocht rechts','direction.0':'Rechtdoor','direction.45':'Schuin rechts','direction.90':'Rechtsaf','direction.135':'Scherp rechts','direction.180':'Terug','direction.225':'Scherp links','direction.270':'Linksaf','direction.315':'Schuin links','bearing':'Koers in graden','bearingLabel':'Koers van stap {number} in graden','numerator':'Teller','denominator':'Noemer','fractionLabel':'Breuk bij stap {number}','addCompass':'Toevoegen','roadCount':'Aantal wegen','roadCountOption':'{count} wegen','roadLayout':'Weg-layout','junctionShape':'Kruispuntvorm','routeExit':'Te nemen weg','direction':'Jouw richting','roadEdges':'Wegkanten','approachHelp':'De stip geeft aan waar je het kruispunt opkomt. Volg de pijl naar de uitgang.',
     'routeName':'Routenaam','untitled':'Naamloze wandeling','distancePrompt':'Voeg desgewenst afstanden toe','start':'START','startPlaceholder':'Opmerking bij het startpunt','finish':'EIND','finishPlaceholder':'Opmerking bij het eindpunt',
     'printPreview':'Afdrukvoorbeeld A4','pdfOptions':'PDF-opties','includeTechniqueGuide':'Uitleg routetechnieken','printNote':'Zes consistente tekeningen per A4. Automatisch genummerd en klaar om te printen.','printableRoute':'Printbare route','intersectionLibrary':'Stappenbibliotheek','routeEditor':'Routebewerker',
     'step':'stap','steps':'stappen','page':'pagina','pages':'pagina’s','distanceTotal':'{distance} m aan opgegeven afstanden','added':'Stap {number} toegevoegd','duplicated':'Stap {number} gedupliceerd','removed':'Stap verwijderd.','undone':'Laatste wijziging ongedaan gemaakt','newReady':'Nieuwe route gestart.','newConfirm':'Nieuwe route starten? De huidige route wordt verwijderd.','pdfReady':'Je A4-routeblad is klaar','pdfFailed':'De PDF kon niet worden gemaakt. {error}','saveFailed':'Je browser kon dit concept niet opslaan. Download je PDF voordat je de pagina verlaat.','loadFailed':'Het opgeslagen concept kon niet worden geladen. Deze route is tijdelijk.','stepLimit':'Een route kan maximaal 300 stappen bevatten.',
     'moveUp':'Verplaats stap {number} omhoog','moveDown':'Verplaats stap {number} omlaag','duplicateStep':'Dupliceer stap {number}','removeStep':'Verwijder stap {number}','distance':'Afstand (m)','distancePlaceholder':'bijv. 200','distanceLabel':'Afstand tot stap {number} in meters','note':'Opmerking','notePlaceholder':'bijv. Na de houten brug','noteLabel':'Opmerking bij stap {number}',
     'rotateLeft':'Draai stap {number} 45 graden linksom','rotateRight':'Draai stap {number} 45 graden rechtsom','rotation':'Draaiing {degrees} graden','rotateLeftTitle':'Draai 45° linksom','rotateRightTitle':'Draai 45° rechtsom',
-    'roadTypes':'Wegtypen','standardRoads':'Normale wegen','faintPath':'Hazenpaadje','markFaintPath':'Markeer {road} als hazenpaadje','landmarks':'Route-elementen','add':'Toevoegen','item':'Element','roadArm':'Wegtak','position':'Plaatsing','side.left':'Links van de weg','side.right':'Rechts van de weg','itemLabel':'Element {landmark} bij stap {step}','armLabel':'Wegtak voor element {landmark} bij stap {step}','positionLabel':'Plaatsing van element {landmark} bij stap {step}','removeLandmark':'Verwijder element {landmark} van stap {step}','addLandmark':'Element toevoegen','landmarkHelp':'Plaats één element op de weg en één aan elke wegkant.',
+    'roadTypes':'Wegtypen','faintPath':'Hazenpaadje','markFaintPath':'Markeer {road} als hazenpaadje','landmarks':'Route-elementen','add':'Toevoegen','item':'Element','roadArm':'Wegtak','position':'Plaatsing','side.left':'Links van de weg','side.right':'Rechts van de weg','itemLabel':'Element {landmark} bij stap {step}','armLabel':'Wegtak voor element {landmark} bij stap {step}','positionLabel':'Plaatsing van element {landmark} bij stap {step}','removeLandmark':'Verwijder element {landmark} van stap {step}','addLandmark':'Element toevoegen',
     'guide.title':'Uitleg routetechnieken','guide.junction':'Kom bij de stip het kruispunt op en volg de pijl naar de juiste uitgang.','guide.dot-arrow':'Volg de lijn vanaf het bolletje naar de pijl. Lees de richting vanuit je looprichting: omhoog is rechtdoor.','guide.eyes':'Loop in de richting waarin de ogen kijken, vanuit je eigen looprichting. Omhoog kijken betekent rechtdoor; omlaag kijken betekent terug.','guide.compass':'Loop in de aangegeven kompasrichting. 0° is noord, 90° oost, 180° zuid en 270° west.','guide.fraction':'De teller geeft aan welke weg je neemt; de noemer is het totale aantal wegen. Tel de aankomstweg mee en tel van links naar rechts.','guide.pageLabel':'Uitleg routetechnieken. {techniques}','pdf.credits':'Gemaakt met https://vandervenwouter.github.io/hike-generator','pdf.page':'PAGINA {page} / {pages}','pdf.noSteps':'Voeg een stap toe voordat je downloadt.',
     'group.T-junction':'T-splitsing','group.Crossroads':'Kruispunt','group.Fork':'Vorksplitsing','group.Side road':'Zijweg','group.Bends & paths':'Bochten en paden','group.4-way intersection':'Viersprong','group.Three-way fork':'Drievoudige vorksplitsing','group.5-way intersection':'Vijfsprong','group.6-way intersection':'Zessprong',
     'element.Turn left':'Linksaf','element.Turn right':'Rechtsaf','element.Go straight':'Rechtdoor','element.Go straight 45° right':'Rechtdoor, 45° rechts','element.Go straight 45° left':'Rechtdoor, 45° links','element.Keep left':'Links aanhouden','element.Keep right':'Rechts aanhouden','element.Pass left road':'Linkerzijweg voorbij','element.Pass right road':'Rechterzijweg voorbij','element.Bend left':'Bocht naar links','element.Bend right':'Bocht naar rechts','element.First road right':'Eerste weg rechts','element.Second road right':'Tweede weg rechts','element.First road left':'Eerste weg links','element.Second road left':'Tweede weg links','element.Hard right':'Scherp rechts','element.Slight right':'Schuin rechts','element.Slight left':'Schuin links','element.Hard left':'Scherp links',
@@ -151,6 +151,32 @@ export const translations = {
     'previewLabel':'A4-pagina {page} van {pages}. {steps}'
   }
 };
+translations.en['technique.stripkaart']='Stripkaart';
+translations.en['guide.stripkaart']='Start at the dot and follow the vertical route line upward. Leave every marked side road on its side. A dashed side road is a faint path.';
+translations.en['stripkaart.left']='Left side roads';
+translations.en['stripkaart.right']='Right side roads';
+translations.en['stripkaart.leftRoad']='Left road {number}';
+translations.en['stripkaart.rightRoad']='Right road {number}';
+translations.en['stripkaart.points']='{count} points';
+translations.en['stripkaart.add']='Add point';
+translations.en['stripkaart.remove']='Remove point';
+translations.en['stripkaart.endMarker']='End marking';
+translations.en['stripkaart.endMarker.arrow']='Arrowhead';
+translations.en['stripkaart.endMarker.none']='No end marking';
+translations.en['stripkaart.endMarker.bar']='Wide horizontal line';
+translations.nl['technique.stripkaart']='Stripkaart';
+translations.nl['guide.stripkaart']='Begin bij de stip en volg de verticale routelijn omhoog. Laat iedere gemarkeerde zijweg aan die kant liggen. Een gestreepte zijweg is een hazenpaadje.';
+translations.nl['stripkaart.left']='Zijwegen links';
+translations.nl['stripkaart.right']='Zijwegen rechts';
+translations.nl['stripkaart.leftRoad']='Linkerzijweg {number}';
+translations.nl['stripkaart.rightRoad']='Rechterzijweg {number}';
+translations.nl['stripkaart.points']='{count} punten';
+translations.nl['stripkaart.add']='Splitsing toevoegen';
+translations.nl['stripkaart.remove']='Punt verwijderen';
+translations.nl['stripkaart.endMarker']='Eindmarkering';
+translations.nl['stripkaart.endMarker.arrow']='Pijlkop';
+translations.nl['stripkaart.endMarker.none']='Geen eindmarkering';
+translations.nl['stripkaart.endMarker.bar']='Brede horizontale lijn';
 export function translate(language,key,values={}){
   const template=(translations[language]??translations.en)[key]??translations.en[key]??key;
   return template.replace(/\{(\w+)\}/g,(_,name)=>values[name]??'');
@@ -197,16 +223,9 @@ export function armGeometry(element,arm,scale=junctionScale(element)){
     tipDistance=tip?Math.hypot(tip.x-50,tip.y-50):0;
   return {arm,scale,radians,direction,distance,end,endDistance,tip,tipDistance,route:routeArmFor(element)?.id===arm.id};
 }
-function markerFits(geometry,distance){
-  const {scale,direction,radians}=geometry,
-    x=50+direction.x*distance*scale,y=50+direction.y*distance*scale,
-    halfX=(Math.abs(Math.cos(radians))*10+Math.abs(Math.sin(radians))*27)*bridgeMarkerScale,
-    halfY=(Math.abs(Math.sin(radians))*10+Math.abs(Math.cos(radians))*27)*bridgeMarkerScale;
-  return x-halfX>=3&&x+halfX<=97&&y-halfY>=3&&y+halfY<=97;
-}
 function bridgeClear(geometry,arms,distance){
   const {scale,direction,radians}=geometry,
-    center={x:50+direction.x*distance*scale,y:50+direction.y*distance*scale},normal={x:-Math.sin(radians),y:Math.cos(radians)},halfAlong=10*bridgeMarkerScale,halfAcross=27*bridgeMarkerScale;
+    center={x:50+direction.x*distance*scale,y:50+direction.y*distance*scale},normal={x:-Math.sin(radians),y:Math.cos(radians)},halfAlong=16*bridgeMarkerScale,halfAcross=30*bridgeMarkerScale;
   for(const other of arms){
     if(other.id===geometry.arm.id)continue;
     const difference=Math.abs(((other.angle-geometry.arm.angle+540)%360)-180);
@@ -228,17 +247,9 @@ export function bridgeGeometry(element,arm,scale=junctionScale(element)){
   const target=geometry.route
     ?Math.max(geometry.endDistance-6/scale,geometry.tipDistance+4/scale)
     :geometry.endDistance-6/scale;
-  let low=geometry.distance,high=Math.max(target,geometry.distance)+200;
-  for(let i=0;i<24;i++){
-    const middle=(low+high)/2;
-    if(markerFits(geometry,middle))low=middle;else high=middle;
-  }
   const step=2/scale;
-  let markerDistance=Math.min(target,low);
-  for(let candidate=markerDistance;candidate<=low;candidate+=step){
-    if(bridgeClear(geometry,arms,candidate)){markerDistance=candidate;break;}
-    markerDistance=Math.min(candidate+step,low);
-  }
+  let markerDistance=Math.max(target,geometry.distance);
+  while(!bridgeClear(geometry,arms,markerDistance))markerDistance+=step;
   const requiredEnd=Math.max(geometry.endDistance,markerDistance+10/scale),roadStart=geometry.endDistance-geometry.distance;
   // Overlap the existing road layers far enough to hide the extension cap completely.
   return {geometry,along:markerDistance-geometry.distance,start:Math.max(0,roadStart-12/scale),end:requiredEnd-geometry.distance,extension:Math.max(0,requiredEnd-geometry.endDistance)};
@@ -304,7 +315,7 @@ export function junctionOffset(element,placements=[]){
       continue;
     }
     const geometry=placement.type==='bridge'?bridgeGeometry(element,arm,scale):placement.type==='parking'?parkingGeometry(element,arm,placement.side,scale):waterGeometry(element,arm,placement.side,scale),distance=geometry.geometry.distance+geometry.along,angle=geometry.geometry.radians;
-    if(placement.type==='bridge')add({x:50+Math.cos(angle)*distance,y:50+Math.sin(angle)*distance},(Math.abs(Math.cos(angle))*10+Math.abs(Math.sin(angle))*27)*bridgeMarkerScale/scale,(Math.abs(Math.sin(angle))*10+Math.abs(Math.cos(angle))*27)*bridgeMarkerScale/scale);
+    if(placement.type==='bridge')add({x:50+Math.cos(angle)*distance,y:50+Math.sin(angle)*distance},(Math.abs(Math.cos(angle))*16+Math.abs(Math.sin(angle))*30)*bridgeMarkerScale/scale,(Math.abs(Math.sin(angle))*16+Math.abs(Math.cos(angle))*30)*bridgeMarkerScale/scale);
     else {const config=placement.type==='parking'?{offset:24,halfX:12,halfY:12}:{offset:27,halfX:10,halfY:3},side=(placement.side==='left'?-1:1)*(arm.id==='approach'?-1:1);add(roadsideMarkerCenter(geometry.geometry,side,distance,config.offset),config.halfX/scale,config.halfY/scale);}
     if(geometry.extension)add({x:50+geometry.geometry.direction.x*(geometry.geometry.endDistance+geometry.extension),y:50+geometry.geometry.direction.y*(geometry.geometry.endDistance+geometry.extension)},edgeXFor(angle,half),edgeYFor(angle,half));
   }
@@ -471,7 +482,7 @@ export function junctionDiagramScale(element,placements=[]){
   const include=(x,y,halfX,halfY)=>{bounds[0]=Math.min(bounds[0],x+offset.x-halfX);bounds[1]=Math.max(bounds[1],x+offset.x+halfX);bounds[2]=Math.min(bounds[2],y+offset.y-halfY);bounds[3]=Math.max(bounds[3],y+offset.y+halfY);};
   for(const layer of layers){
     if(!layer.upright&&layer.path!==landmarkTypes[0].over)continue;
-    const marker=layer.path===landmarkTypes[0].over?{x:5.5,y:14.85}:layer.path.startsWith('M 0 -14')?{x:10.5,y:10.5}:layer.path.startsWith('M-10.8')?{x:12,y:12}:{x:10,y:3};
+    const marker=layer.path===landmarkTypes[0].over?{x:8.8,y:16.5}:layer.path.startsWith('M 0 -14')?{x:10.5,y:10.5}:layer.path.startsWith('M-10.8')?{x:12,y:12}:{x:10,y:3};
     include(layer.x??50,layer.y??50,marker.x,marker.y);
   }
   return Math.min(1,100/(bounds[1]-bounds[0]),100/(bounds[3]-bounds[2]));
@@ -500,6 +511,23 @@ export function eyesLayers(rotation=0){
     {path:'M17 50a15 22 0 1 0 30 0a15 22 0 1 0-30 0M53 50a15 22 0 1 0 30 0a15 22 0 1 0-30 0',width:3,color:lineColor,fill:'#fff',cap:'round'},
     {path:'M26 50a6 6 0 1 0 12 0a6 6 0 1 0-12 0M62 50a6 6 0 1 0 12 0a6 6 0 1 0-12 0',x:Number((Math.sin(angle)*7).toFixed(2)),y:Number((-Math.cos(angle)*12).toFixed(2)),width:0,color:lineColor,fill:lineColor},
   ];
+}
+export const stripkaartHeight = points => Math.max(100,76+(Math.max(points.length,1)-1)*28);
+export function stripkaartLayers(points=[],endMarker='arrow'){
+  const height=stripkaartHeight(points),startY=height-14;
+  const layers=[
+    {path:`M50 ${startY}V14`,width:2.5,color:lineColor,cap:'round',fill:undefined},
+    ...(endMarker==='arrow'?[{path:'M44 20L50 14L56 20',width:2.5,color:lineColor,cap:'round'}]:endMarker==='bar'?[{path:'M22 14H78',width:2.5,color:lineColor,cap:'round'}]:[]),
+    {path:`M44 ${startY}a6 6 0 1 0 12 0a6 6 0 1 0-12 0`,width:0,color:lineColor,fill:lineColor},
+  ];
+  points.forEach((point,index)=>{
+    const y=height-38-index*28,left=point.left??0,right=point.right??0,faintRoads=new Set(point.faintRoads??[]);
+    for(let side=0;side<Math.max(left,right);side++){
+      if(side<left){const offset=left>1?(side/(left-1)-.5)*18:0,faint=faintRoads.has(`left-${side}`);layers.push({path:`M50 ${y}L28 ${y+offset}`,width:2.5,color:lineColor,cap:faint?'butt':'round',...(faint?{dash:[5,4]}:{})});}
+      if(side<right){const offset=right>1?(side/(right-1)-.5)*18:0,faint=faintRoads.has(`right-${side}`);layers.push({path:`M50 ${y}L72 ${y+offset}`,width:2.5,color:lineColor,cap:faint?'butt':'round',...(faint?{dash:[5,4]}:{})});}
+    }
+  });
+  return layers;
 }
 export function compassLayers(bearing=0){
   const tip=point(bearing-90,28),tail=point(bearing+90,13),base=point(bearing-90,20),normal=bearing*Math.PI/180;
@@ -536,6 +564,8 @@ const quizHeight = step => 9+Math.ceil(step.answers.length/2)*6+(step.note.trim(
 const stepColumns = step => step.technique==='photo'?(step.columns??1):1;
 // Scale the original 54 by 25 mm photo area with the selected column width.
 const photoHeight = step => 15+25*(stepColumns(step)*62-8)/54;
+const stripkaartNoteSpace = step => step.note.trim()?14:0;
+export const stripkaartCardHeight = step => Math.min(216,Math.max(40,4+stripkaartHeight(step.points)*.32+stripkaartNoteSpace(step)));
 export const junctionCardHeight = step => {
   const element=elements.find(element=>element.id===step.element),hasNote=step.note.trim()!=='',baseScale=hasNote?.28:.36;
   const margin=4,diagramHeight=100*baseScale/junctionDiagramScale(element,step.landmarks);
@@ -551,7 +581,7 @@ export function routePages(route){
       steps.push(step);columns+=stepColumns(step);
     }
     // ponytail: reserve maximum card heights; measure rows if denser quiz pages are needed.
-    const height=Math.max(40,...steps.map(step=>step.technique==='photo'?photoHeight(step)+2:step.technique==='quiz'?quizHeight(step)+2:(!step.technique||step.technique==='junction')?junctionCardHeight(step):0));
+    const height=Math.max(40,...steps.map(step=>step.technique==='photo'?photoHeight(step)+2:step.technique==='quiz'?quizHeight(step)+2:step.technique==='stripkaart'?stripkaartCardHeight(step)+2:(!step.technique||step.technique==='junction')?junctionCardHeight(step):0));
     if(pages.at(-1).length&&(used+height>218||pages.at(-1).length===stepsPerPage/3)){pages.push([]);used=0;}
     pages.at(-1).push({start,steps});used+=height;start+=steps.length;
   }
@@ -614,6 +644,18 @@ export function validateRoute(value){
     if(step.technique==='quiz'){
       if(typeof step.question!=='string'||step.question.length>160||!Array.isArray(step.answers)||step.answers.length<2||step.answers.length>6||Array.from(step.answers).some(answer=>typeof answer!=='string'||answer.length>80))throw Error('Enter a question and 2 to 6 answers.');
       return {technique:'quiz',question:step.question,answers:[...step.answers],note:step.note,distance:step.distance};
+    }
+    if(step.technique==='stripkaart'){
+      if(!Array.isArray(step.points)||step.points.length<1||step.points.length>50)throw Error('Add valid stripkaart points.');
+      const endMarker=step.endMarker===undefined?'arrow':step.endMarker;
+      if(!['arrow','none','bar'].includes(endMarker))throw Error('Add a valid stripkaart end marking.');
+      const points=step.points.map(point=>{
+        if(!point||!Number.isInteger(point.left)||!Number.isInteger(point.right)||point.left<0||point.left>4||point.right<0||point.right>4)throw Error('Add valid stripkaart points.');
+        const faintRoads=point.faintRoads??[];
+        if(!Array.isArray(faintRoads)||new Set(faintRoads).size!==faintRoads.length||!faintRoads.every(id=>{const match=/^(left|right)-([0-4])$/.exec(id);return match&&Number(match[2])<point[match[1]];}))throw Error('Add valid stripkaart points.');
+        return {left:point.left,right:point.right,faintRoads:[...faintRoads]};
+      });
+      return {technique:'stripkaart',points,endMarker,note:step.note,distance:step.distance};
     }
     const numbered=step.numbered===undefined?true:step.numbered;
     if(['input','photo'].includes(step.technique)&&typeof numbered!=='boolean')throw Error('Invalid step numbering option.');
@@ -701,6 +743,7 @@ export function drawTechniqueGuide(canvas,route,scale=3,Path=Path2D,language='en
     if(technique==='fraction'||technique==='quiz'){ctx.fillStyle='#000000';ctx.font='700 12px Arial, sans-serif';ctx.textAlign='center';ctx.textBaseline='middle';fillCanvasText(ctx,technique==='quiz'?'A B C':`${step.numerator}/${step.denominator}`,40,y+height/2);}
     else if(technique==='photo'){const photoSize=Math.min(36,height-4);drawPhoto(ctx,step.image,40-photoSize/2,y+height/2-photoSize/2,photoSize,photoSize);}
     else if(technique==='input'){ctx.strokeStyle='#000000';ctx.lineWidth=1;ctx.strokeRect(22,y+height/2-6,36,12);ctx.fillStyle='#000000';ctx.font='700 8px Arial, sans-serif';ctx.textAlign='center';ctx.textBaseline='middle';fillCanvasText(ctx,'Aa',40,y+height/2);}
+    else if(technique==='stripkaart'){const diagramHeight=stripkaartHeight(step.points),diagramScale=Math.min(44/100,(height-4)/diagramHeight);ctx.translate(40-diagramScale*50,y+(height-diagramScale*diagramHeight)/2);ctx.scale(diagramScale,diagramScale);drawLayers(ctx,Path,stripkaartLayers(step.points,step.endMarker));}
     else{
       const size=Math.min(44,height-4);ctx.translate(40-size/2,y+(height-size)/2);ctx.scale(size/100,size/100);
       if(technique==='junction'||technique==='dot-arrow'){const element=technique==='dot-arrow'?dotArrowShape(step.element):elements.find(element=>element.id===step.element),offset=technique==='junction'?junctionOffset(element,step.landmarks):{x:0,y:0};ctx.translate(50,50);ctx.rotate((step.rotation??0)*Math.PI/180);ctx.translate(-50+offset.x,-50+offset.y);drawLayers(ctx,Path,technique==='dot-arrow'?dotArrowLayers(element):junctionLayers(element,step.landmarks,step.faintArms),step.rotation??0);}
@@ -740,12 +783,12 @@ export function drawSheet(canvas,route,pageIndex,scale=3,Path=Path2D,language='e
       ctx.font='400 2px Arial, sans-serif';
       const lines=note?Math.min(wrap(ctx,note,52).length,4):0;
       const junction=!step.technique||step.technique==='junction';
-      return {step,note,lines,height:step.technique==='photo'?photoHeight(step):step.technique==='quiz'?quizHeight(step):junction?junctionCardHeight(step):lines?25.5+lines*2.7:25};
+      return {step,note,lines,height:step.technique==='photo'?photoHeight(step):step.technique==='quiz'?quizHeight(step):step.technique==='stripkaart'?stripkaartCardHeight(step):junction?junctionCardHeight(step):lines?25.5+lines*2.7:25};
     });
     let column=0;
     cards.forEach(({step,note,lines,height},index)=>{
       const number=numbers[start+index];
-      const quiz=step.technique==='quiz',input=step.technique==='input',photo=step.technique==='photo',compass=step.technique==='compass',clock=step.technique==='clock',fraction=step.technique==='fraction',dotArrow=step.technique==='dot-arrow',eyes=step.technique==='eyes',junction=!step.technique||step.technique==='junction',e=quiz||input||photo||compass||clock||fraction||eyes?null:dotArrow?dotArrowShape(step.element):elements.find(e=>e.id===step.element),x=14+column*62,width=stepColumns(step)*62-4;
+      const quiz=step.technique==='quiz',input=step.technique==='input',photo=step.technique==='photo',compass=step.technique==='compass',clock=step.technique==='clock',fraction=step.technique==='fraction',dotArrow=step.technique==='dot-arrow',eyes=step.technique==='eyes',stripkaart=step.technique==='stripkaart',junction=!step.technique||step.technique==='junction',e=quiz||input||photo||compass||clock||fraction||eyes||stripkaart?null:dotArrow?dotArrowShape(step.element):elements.find(e=>e.id===step.element),x=14+column*62,width=stepColumns(step)*62-4;
       column+=stepColumns(step);
       ctx.strokeStyle='#000000';ctx.lineWidth=.25;ctx.strokeRect(x,y,width,height);
       if(quiz){
@@ -772,13 +815,13 @@ export function drawSheet(canvas,route,pageIndex,scale=3,Path=Path2D,language='e
       ctx.save();
       if(fraction){ctx.fillStyle='#000000';ctx.font='700 8px Arial, sans-serif';ctx.textAlign='center';ctx.textBaseline='middle';fillCanvasText(ctx,`${step.numerator}/${step.denominator}`,x+29,y+12.5);}
       else{
-        const diagramScale=junction?(note ? .28 : .36):.21;
-        ctx.translate(x+29-diagramScale*50,y+(height-diagramScale*100)/2);ctx.scale(diagramScale,diagramScale);
+        const diagramHeight=stripkaart?stripkaartHeight(step.points):100,diagramAreaHeight=stripkaart?height-stripkaartNoteSpace(step):height,diagramScale=junction?(note ? .28 : .36):stripkaart?Math.min(.32,(diagramAreaHeight-4)/diagramHeight):.21;
+        ctx.translate(x+29-diagramScale*50,y+(diagramAreaHeight-diagramScale*diagramHeight)/2);ctx.scale(diagramScale,diagramScale);
         if(!compass&&!clock&&!eyes){const offset=junction?junctionOffset(e,step.landmarks):{x:0,y:0};ctx.translate(50,50);ctx.rotate((step.rotation??0)*Math.PI/180);ctx.translate(-50+offset.x,-50+offset.y);}
-        drawLayers(ctx,Path,compass?compassLayers(step.bearing):clock?clockLayers():eyes?eyesLayers(step.rotation):dotArrow?dotArrowLayers(e):junctionLayers(e,step.landmarks,step.faintArms),step.rotation??0);
+        drawLayers(ctx,Path,compass?compassLayers(step.bearing):clock?clockLayers():eyes?eyesLayers(step.rotation):stripkaart?stripkaartLayers(step.points,step.endMarker):dotArrow?dotArrowLayers(e):junctionLayers(e,step.landmarks,step.faintArms),step.rotation??0);
       }
       ctx.restore();
-      if(note)text(note,x+2,y+(junction?height-(lines?(lines-1)*2.7+4:4):24.2),2,400,'#000000',54,4);
+      if(note)text(note,x+2,y+(junction||stripkaart?height-(lines?(lines-1)*2.7+4:4):24.2),2,400,'#000000',54,4);
     });
     y+=Math.max(...cards.map(card=>card.height))+2;
   }

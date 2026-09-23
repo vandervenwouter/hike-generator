@@ -4,10 +4,10 @@ import {readFileSync} from 'node:fs';
 import {runInNewContext} from 'node:vm';
 import * as routeSheet from './dist/route-sheet.js';
 import {quizLetter,routePages,stepNumbers,createPDF,junctionLayoutKey,mirroredJunctionLayoutKey,junctionLateralBias} from './dist/route-sheet.js';
-import {elements,blankRoute,validateRoute,pageCount,documentPageCount,routeTechniques,stepsPerPage,rotateStep,roadArms,landmarkArms,roadCount,roadArmLabel,landmarkTypes,sidedLandmarkTypes,junctionLayers,junctionOffset,junctionDiagramScale,junctionCardHeight,compassLayers,clockLayers,dotArrowDirections,dotArrowShapes,dotArrowShape,dotArrowLayers,eyesLayers,layerRotation,translations,translate,elementName,groupName,landmarkName,serializeRoute,parseRoute,drawSheet,drawTechniqueGuide,bridgeGeometry,parkingGeometry,waterGeometry} from './dist/route-sheet.js';
+import {elements,blankRoute,validateRoute,pageCount,documentPageCount,routeTechniques,stepsPerPage,rotateStep,roadArms,landmarkArms,roadCount,roadArmLabel,landmarkTypes,sidedLandmarkTypes,junctionLayers,junctionOffset,junctionDiagramScale,junctionCardHeight,compassLayers,clockLayers,dotArrowDirections,dotArrowShapes,dotArrowShape,dotArrowLayers,eyesLayers,stripkaartHeight,stripkaartCardHeight,stripkaartLayers,layerRotation,translations,translate,elementName,groupName,landmarkName,serializeRoute,parseRoute,drawSheet,drawTechniqueGuide,bridgeGeometry,parkingGeometry,waterGeometry} from './dist/route-sheet.js';
 
 const lucide=createRequire(import.meta.url)('./dist/vendor/lucide.js');
-for(const name of ['Signpost','Moon','Sun','Undo2','FilePlus2','FileUp','FileJson2','FileDown','FileText','ListOrdered','Copy','ArrowUp','Navigation','Route','Compass','Divide','ArrowLeft','Flag','ArrowUpRight','Camera','Plus','Check','Trash2','RotateCcw','RotateCw','ArrowDown','ChevronDown','Settings2','X'])assert.ok(lucide[name],`Missing Lucide icon: ${name}`);
+for(const name of ['Signpost','Undo2','FilePlus2','FileUp','FileJson2','FileDown','FileText','ListOrdered','Copy','ArrowUp','Navigation','Route','Compass','Divide','ArrowLeft','Flag','ArrowUpRight','Camera','Plus','Check','Trash2','RotateCcw','RotateCw','ArrowDown','ChevronDown','Settings2','X'])assert.ok(lucide[name],`Missing Lucide icon: ${name}`);
 
 const route=blankRoute();
 assert.equal(pageCount(route),1);
@@ -62,6 +62,45 @@ const fractionRoute={...blankRoute(),steps:[{technique:'fraction',numerator:3,de
 const inputRoute={...blankRoute(),steps:[{technique:'input',value:'Steek nu het zebrapad over',numbered:true,note:'',distance:''}]};
 const photoData='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNk+A8AAQUBAScY42YAAAAASUVORK5CYII=';
 const photoRoute={...blankRoute(),steps:[{technique:'photo',image:photoData,columns:1,numbered:true,note:'Look for this landmark',distance:''}]};
+const stripkaartRoute={...blankRoute(),steps:[{technique:'stripkaart',points:[{left:1,right:1,faintRoads:['right-0']},{left:0,right:2,faintRoads:[]},{left:2,right:0,faintRoads:['left-1']}],endMarker:'arrow',note:'Follow the line upward',distance:''}]};
+assert.deepEqual(validateRoute(stripkaartRoute),stripkaartRoute,'A stripkaart must remain one route step with editable points');
+assert.deepEqual(parseRoute(serializeRoute(stripkaartRoute)),stripkaartRoute,'Stripkaart points must survive export and import');
+assert.equal(validateRoute({...stripkaartRoute,steps:[{...stripkaartRoute.steps[0],endMarker:undefined}]}).steps[0].endMarker,'arrow','Existing stripkaarten must default to an arrowhead');
+const stripkaartSideRoads=layers=>layers.filter(layer=>/^M50 [\d.]+L/.test(layer.path));
+assert.equal(stripkaartSideRoads(stripkaartLayers(stripkaartRoute.steps[0].points)).length,6,'A stripkaart must render each marked side road');
+const styledStripkaartRoads=stripkaartSideRoads(stripkaartLayers([{left:1,right:1,faintRoads:['left-0']}])),faintStripkaartRoad=styledStripkaartRoads.find(layer=>layer.dash),regularStripkaartRoad=styledStripkaartRoads.find(layer=>!layer.dash);
+assert.deepEqual([faintStripkaartRoad.width,faintStripkaartRoad.cap,faintStripkaartRoad.dash],[2.5,'butt',[5,4]],'Stripkaart hazenpaadjes must be as thick as regular stripkaart roads');
+assert.deepEqual([regularStripkaartRoad.width,regularStripkaartRoad.cap],[2.5,'round'],'Regular stripkaart roads must keep the shared route-line weight');
+const equalLengthRoads=stripkaartSideRoads(stripkaartLayers([{left:1,right:1,faintRoads:['left-0']}])).map(layer=>Math.abs(Number(layer.path.match(/L([\d.]+)/)[1])-50));
+assert.deepEqual(equalLengthRoads,[22,22],'Regular and faint stripkaart side roads must have the same extended length');
+for(const endMarker of ['arrow','none','bar'])assert.deepEqual(parseRoute(serializeRoute({...stripkaartRoute,steps:[{...stripkaartRoute.steps[0],endMarker}]})).steps[0].endMarker,endMarker,'Every stripkaart end marking must survive export and import');
+assert.ok(stripkaartLayers(stripkaartRoute.steps[0].points,'arrow').some(layer=>layer.path==='M44 20L50 14L56 20'),'The default stripkaart must end in an arrowhead');
+const unmarkedStripkaartLayers=stripkaartLayers(stripkaartRoute.steps[0].points,'none');
+const barredStripkaartLayers=stripkaartLayers(stripkaartRoute.steps[0].points,'bar');
+assert.ok(!unmarkedStripkaartLayers.some(layer=>layer.path==='M44 20L50 14L56 20'||layer.path==='M22 14H78'),'A stripkaart may end without a marker');
+assert.equal(unmarkedStripkaartLayers[0].path,barredStripkaartLayers[0].path,'An unmarked stripkaart must end at the same height as the wide-bar variant');
+assert.ok(barredStripkaartLayers.some(layer=>layer.path==='M22 14H78'),'A stripkaart may end in a wide horizontal line');
+assert.deepEqual(validateRoute({...stripkaartRoute,steps:[{...stripkaartRoute.steps[0],points:[{left:1,right:0}]}]}).steps[0].points[0].faintRoads,[],'Existing stripkaarten must load with regular side roads');
+const pairedStripkaartRoads=stripkaartSideRoads(stripkaartLayers([{left:2,right:2,faintRoads:['left-0','right-1']}]));
+assert.ok(pairedStripkaartRoads.every(layer=>{const [,startY,endX,endY]=layer.path.match(/^M50 ([\d.]+)L([\d.]+) ([\d.]+)$/);return Math.abs(Number(endY)-Number(startY))<Math.abs(Number(endX)-50);}),'Two side roads must use a compact angle below 45 degrees');
+assert.equal(Math.max(...pairedStripkaartRoads.map(layer=>Number(layer.path.match(/ ([\d.]+)$/)[1])))-Math.min(...pairedStripkaartRoads.map(layer=>Number(layer.path.match(/ ([\d.]+)$/)[1]))),18,'A paired side-road fan must stay compact');
+assert.equal(new Set(pairedStripkaartRoads.map(layer=>layer.path.match(/^M50 ([\d.]+)L/)[1])).size,1,'Roads from one junction must share one point on the arrow body');
+assert.equal(stripkaartHeight([{left:1,right:0,faintRoads:[]}]),100,'A short stripkaart keeps the original arrow height');
+const spacedStripkaartPoints=[{left:1,right:1,faintRoads:[]},{left:0,right:2,faintRoads:[]},{left:2,right:0,faintRoads:[]}];
+assert.equal(stripkaartHeight(spacedStripkaartPoints),132,'The arrow must grow by one junction interval per additional split');
+const printableStripkaartStep={...stripkaartRoute.steps[0],points:Array.from({length:6},()=>({left:1,right:1,faintRoads:[]})),note:''};
+assert.equal(stripkaartCardHeight({...printableStripkaartStep,points:printableStripkaartStep.points.slice(0,1)}),40,'A short stripkaart PDF card keeps the standard row height');
+assert.equal(stripkaartCardHeight(printableStripkaartStep),4+stripkaartHeight(printableStripkaartStep.points)*.32,'A stripkaart PDF card must grow instead of shrinking its figure');
+assert.equal(stripkaartCardHeight({...printableStripkaartStep,points:Array.from({length:50},()=>({left:1,right:1,faintRoads:[]}))}),216,'A stripkaart card must stay within one printable page');
+const spacedStripkaartRoads=stripkaartSideRoads(stripkaartLayers(spacedStripkaartPoints)),splitOrigins=[...new Set(spacedStripkaartRoads.map(layer=>Number(layer.path.match(/^M50 ([\d.]+)L/)[1])))].sort((a,b)=>a-b);
+assert.deepEqual(splitOrigins,[38,66,94],'Splits must keep a fixed vertical interval as the arrow grows');
+const splitRanges=splitOrigins.map(origin=>spacedStripkaartRoads.filter(layer=>Number(layer.path.match(/^M50 ([\d.]+)L/)[1])===origin).flatMap(layer=>[origin,Number(layer.path.match(/ ([\d.]+)$/)[1])])).map(values=>({min:Math.min(...values),max:Math.max(...values)}));
+assert.ok(splitRanges.every((range,index)=>index===0||splitRanges[index-1].max<range.min),'Side-road fans from neighbouring splits must not overlap');
+const crowdedStripkaartLayers=stripkaartSideRoads(stripkaartLayers([{left:1,right:0,faintRoads:[]},{left:4,right:0,faintRoads:[]}]));
+const crowdedStripkaartY=crowdedStripkaartLayers.flatMap(layer=>{const [,startY,,endY]=layer.path.match(/^M50 ([\d.]+)L([\d.]+) ([\d.]+)$/);return [Number(startY),Number(endY)];});
+assert.ok(Math.min(...crowdedStripkaartY)>20&&Math.max(...crowdedStripkaartY)<stripkaartHeight([{},{}])-20,'Stripkaart junctions must stay between the arrowhead and start dot');
+for(const points of [[],[{left:5,right:0}],[{left:0,right:5}],[{left:1,right:0,faintRoads:['left-1']}],[{left:1,right:0,faintRoads:['left-0','left-0']}]])assert.throws(()=>validateRoute({...stripkaartRoute,steps:[{...stripkaartRoute.steps[0],points}]}));
+for(const endMarker of ['',null,'line','wide'])assert.throws(()=>validateRoute({...stripkaartRoute,steps:[{...stripkaartRoute.steps[0],endMarker}]}));
 assert.equal(translate('nl','technique.input'),'Vrije tekst');
 assert.equal(translate('nl','technique.junction'),'Kruispunten');
 assert.equal(translate('nl','technique.photo'),'Foto');
@@ -154,6 +193,16 @@ assert.deepEqual(routePages(route).flatMap(page=>page.flatMap(row=>row.steps)),r
 assert.equal(pageCount({...route,steps:route.steps.slice(0,12)}),1);
 assert.equal(pageCount({...route,steps:route.steps.slice(0,13)}),2);
 const rects=[],printed=[],positions=[],ctx={scale(){},fillRect(){},fillText(value,x,y){printed.push(value);positions.push({value,x,y})},beginPath(){},moveTo(){},lineTo(){},stroke(){},save(){},translate(){},rotate(){},restore(){},setLineDash(){},arc(){},fill(){},strokeRect(...args){rects.push(args)},measureText(value){return {width:value.length}}};
+const stripkaartPdfRects=[],stripkaartPdfScales=[];
+drawSheet({getContext:()=>({...ctx,scale(x,y){stripkaartPdfScales.push([x,y])},strokeRect(...args){stripkaartPdfRects.push(args)}})},{...blankRoute(),steps:[printableStripkaartStep]},0,1,class{constructor(value){this.value=value}});
+assert.equal(stripkaartPdfRects[0][3],stripkaartCardHeight(printableStripkaartStep),'The rendered PDF card must use the calculated stripkaart height');
+assert.ok(stripkaartPdfScales.some(([x,y])=>x===.32&&y===.32),'A growing stripkaart PDF card must preserve the readable drawing scale');
+const stripkaartPdfPaths=[];
+drawSheet({getContext:()=>({...ctx,stroke(path){if(path)stripkaartPdfPaths.push(path.value)},strokeRect(){}})},{...blankRoute(),steps:[{...printableStripkaartStep,endMarker:'bar'}]},0,1,class{constructor(value){this.value=value}});
+assert.ok(stripkaartPdfPaths.includes('M22 14H78'),'The PDF must use the selected stripkaart end marking');
+const pagedStripkaartRoute={...blankRoute(),steps:Array(9).fill(printableStripkaartStep)};
+assert.equal(pageCount(pagedStripkaartRoute),2,'Growing stripkaart cards must participate in PDF pagination');
+for(let page=0;page<pageCount(pagedStripkaartRoute);page++)drawSheet({getContext:()=>({...ctx,strokeRect(x,y,width,height){assert.ok(y+height<267,'A growing stripkaart card must stay above the finish and footer')}})},pagedStripkaartRoute,page,1,class{});
 const turnBack=elements.find(element=>element.id==='turn-back');
 const turnBackRoute=validateRoute({...blankRoute(),steps:[{element:turnBack.id,note:'Keer om bij de uitkijktoren.',distance:'',rotation:90}]});
 assert.equal(roadCount(turnBack),2,'Turning back must be available under two roads');
@@ -355,9 +404,11 @@ const right=roadArms(elements[1]).find(arm=>arm.id==='right');
 assert.equal(roadArmLabel(right),'Right road');
 assert.equal(roadArmLabel(right,90),'Bottom road','Placement labels must follow the visible rotation');
 assert.equal(translate('nl','downloadPdf'),'PDF downloaden');
+assert.equal(translate('nl','importRoute'),'Route importeren als JSON');
+assert.equal(translate('nl','exportRoute'),'Route exporteren als JSON');
 assert.equal(translate('en','pdf.credits'),'created with hike-generator by Wouter van der Ven');
 assert.equal(translate('nl','pdf.credits'),'Gemaakt met https://vandervenwouter.github.io/hike-generator');
-assert.equal(translate('nl','darkMode'),'Donkere modus gebruiken');
+assert.ok(!Object.hasOwn(translations.nl,'darkMode')&&!Object.hasOwn(translations.nl,'lightMode'),'Theme-toggle translations must be removed');
 assert.equal(translate('nl','printPreview'),'Afdrukvoorbeeld A4');
 assert.equal(translate('nl','addCompass'),'Toevoegen');
 assert.equal(translate('nl','addRouteItem'),'Stap toevoegen');
@@ -442,7 +493,10 @@ assert.deepEqual(validateRoute({...route,steps:[radialBridge]}).steps[0],radialB
 assert.ok(!roadArms(fiveWay).map(arm=>roadArmLabel(arm)).some(label=>label.includes('undefined')),'Angled road arms need readable position labels');
 assert.equal(landmarkName(landmarkTypes[0],'nl'),'Brug');
 assert.equal(landmarkTypes.find(type=>type.id==='bridge').under,undefined,'A bridge must not include water');
-assert.equal(landmarkTypes.find(type=>type.id==='bridge').over,'M-10 -27V-23H10V-27M-10 27V23H10V27','Bridge markings must keep their original hook direction while placing hooks outside the road edges');
+const bridgeType=landmarkTypes.find(type=>type.id==='bridge');
+assert.equal(bridgeType.over,'M-16 -30L-11 -25H11L16 -30M-16 30L-11 25H11L16 30','Bridge markings must use horizontal bars with outward diagonal ends');
+assert.ok(Math.abs(32*bridgeType.scale-18)<.5,'Bridge markings must be as wide as the water icon');
+assert.ok(25*bridgeType.scale-11.5>2,'Bridge markings must keep visible space outside the road edges');
 assert.equal(landmarkName(landmarkTypes.find(type=>type.id==='parking'),'nl'),'Parkeerplaats');
 assert.equal(landmarkName(landmarkTypes.find(type=>type.id==='bridleway'),'nl'),'Ruiterpad');
 assert.equal(landmarkName(landmarkTypes.find(type=>type.id==='water'),'nl'),'Water');
@@ -538,7 +592,7 @@ assert.ok(waterGeometry(crowdedParkingElement,crowdedParkingArm,'right').extensi
 const angledBridge=junctionLayers(angledMarkerElement,[{type:'bridge',arm:'exit-2'}]).find(layer=>layer.path===landmarkTypes[0].over);
 assert.equal(angledBridge.scale,.55,'Bridge markers should fit the visible road width on angled roads');
 const straightAheadBridgeElement=elements.find(element=>element.id==='angled-side-right-turn'),straightAheadArm=roadArms(straightAheadBridgeElement).find(arm=>arm.id==='exit-1'),straightAheadBridgeGeometry=bridgeGeometry(straightAheadBridgeElement,straightAheadArm),straightAheadBridgeLayers=junctionLayers(straightAheadBridgeElement,[{type:'bridge',arm:'exit-1'}]),straightAheadBridge=straightAheadBridgeLayers.find(layer=>layer.path===landmarkTypes[0].over);
-assert.equal(straightAheadBridgeGeometry.extension,0,'A straight-road bridge should fit without a second extension after the default road extension');
+assert.ok(straightAheadBridgeGeometry.extension>0,'A bridge beside an acute side road must extend its selected road to reach a clear position');
 assert.ok(straightAheadBridge.y<15,'A straight-road bridge must still fit past a diagonal neighbour');
 for(const element of elements){
   for(const arm of landmarkArms(element)){
@@ -550,9 +604,9 @@ for(const element of elements){
     if(geometry.extension)assert.equal(extension.path,`M${geometry.start} 0H${geometry.end}`,'Bridge road extensions must use the same geometry as the marker');
   }
 }
-const diagonalBridgeElement=elements.find(element=>element.id==='skew-cross-ne-sw-left'),diagonalBridgeLayers=junctionLayers(diagonalBridgeElement,[{type:'bridge',arm:'exit-1'}]),diagonalBridge=diagonalBridgeLayers.find(layer=>layer.path===landmarkTypes[0].over),diagonalArm=roadArms(diagonalBridgeElement).find(arm=>arm.id==='exit-1'),diagonalScale=40/(diagonalBridgeElement.radius+diagonalBridgeElement.throughExtension),diagonalArmX=50+(diagonalArm.x-50)*diagonalScale,diagonalArmY=50+(diagonalArm.y-50)*diagonalScale;
+const diagonalBridgeElement=elements.find(element=>element.id==='skew-cross-ne-sw-left'),diagonalBridgeLayers=junctionLayers(diagonalBridgeElement,[{type:'bridge',arm:'exit-1'}]),diagonalBridge=diagonalBridgeLayers.find(layer=>layer.path===landmarkTypes[0].over),diagonalArm=roadArms(diagonalBridgeElement).find(arm=>arm.id==='exit-1'),diagonalBridgeGeometry=bridgeGeometry(diagonalBridgeElement,diagonalArm),diagonalScale=40/(diagonalBridgeElement.radius+diagonalBridgeElement.throughExtension),diagonalArmX=50+(diagonalArm.x-50)*diagonalScale,diagonalArmY=50+(diagonalArm.y-50)*diagonalScale;
 assert.ok((diagonalBridge.x-50)*(diagonalArmX-50)+(diagonalBridge.y-50)*(diagonalArmY-50)>(diagonalArmX-50)**2+(diagonalArmY-50)**2,'A diagonal route bridge should move outward toward the extended road');
-assert.ok(diagonalBridgeLayers.some(layer=>layer.bridgeExtension),'A diagonal route bridge should extend its road when it moves beyond the arrow');
+assert.ok((diagonalBridgeGeometry.geometry.endDistance+diagonalBridgeGeometry.extension-diagonalBridgeGeometry.geometry.distance-diagonalBridgeGeometry.along)*diagonalScale>=16*bridgeType.scale,'A diagonal route bridge must keep road beneath its full marker width');
 const bridlewayLayers=junctionLayers(elements[1],[{type:'bridleway',arm:'right'}]);
 const bridlewayIconLayers=bridlewayLayers.filter(layer=>layer.upright);
 const allBridleways=roadArms(elements[0]).map(arm=>({type:'bridleway',arm:arm.id})),bridlewayOffset=junctionOffset(elements[0],allBridleways);
@@ -636,11 +690,12 @@ for(const element of elements.filter(element=>element.arms)){
       const gap=Math.abs(((other.angle-arm.angle+540)%360)-180)*Math.PI/180;
       const corner=12/Math.tan(gap/2);
       assert.ok((endDistance-corner)*scale>20,'Every angled road must have a clearly visible section beyond the junction');
-      // Check the bridge rail tips against every neighbouring road, not just its centre.
-      for(const along of [-10,10])for(const across of [-19,19]){
-        const x=armDistance+along,projection=x*Math.cos(gap)+across*Math.sin(gap);
-        if(projection>0)assert.ok(Math.abs(x*Math.sin(gap)-across*Math.cos(gap))>13,'Bridge rail tips must stay clear of neighbouring roads');
+      const bridgePosition=bridgeGeometry(element,arm),markerDistance=(bridgePosition.geometry.distance+bridgePosition.along)*bridgePosition.geometry.scale,otherEnd=Math.hypot(other.end.x-50,other.end.y-50)*bridgePosition.geometry.scale,projections=[];
+      for(const along of [-16*scale,16*scale])for(const across of [-30*scale,30*scale]){
+        const x=markerDistance+along;
+        projections.push({along:x*Math.cos(gap)+across*Math.sin(gap),across:x*Math.sin(gap)-across*Math.cos(gap)});
       }
+      assert.ok(Math.max(...projections.map(point=>point.along))<0||Math.min(...projections.map(point=>point.along))>otherEnd||Math.min(...projections.map(point=>point.across))>14||Math.max(...projections.map(point=>point.across))< -14,`${element.id}: bridge markers must move beyond every neighbouring road corridor`);
       for(const [offset,iconRadius] of [[24,Math.hypot(12,12)],[27,Math.hypot(11,6)]])for(const side of [-1,1]){
         const across=offset*side,projection=armDistance*Math.cos(gap)+across*Math.sin(gap);
         if(projection>0&&projection<endDistance)assert.ok(Math.abs(armDistance*Math.sin(gap)-across*Math.cos(gap))>12+iconRadius,`${element.id}: upright parking and water symbols must clear neighbouring roads at every rotation`);
@@ -806,12 +861,30 @@ for (const component of ['RoadTypeEditor', 'LandmarkEditor', 'StepCard', 'RouteE
   assert.match(appSource, new RegExp(`const ${component} = defineComponent`), `${component} component is missing`);
 }
 assert.match(appSource, /createApp\(App\)\.mount\('#app'\)/);
-assert.match(appSource, /wide \? '-20 -20 140 140'/);
+assert.match(indexSource, /<html lang="en" data-theme="dark">/,'Dark styling must be active before the app starts');
+assert.match(indexSource, /<meta name="theme-color" content="#101612">/,'Browser chrome must use the fixed dark background');
+assert.doesNotMatch(appSource, /theme-toggle|toggle-theme|toggleTheme|hike-generator-theme|prefers-color-scheme|dataset\.theme|applyTheme/,'Light/dark state and controls must be removed');
+assert.match(appSource, /<section class="landmark-editor road-type-editor"><h4 class="editor-heading">/,'Junction road types must remain visible without a details toggle');
+assert.match(appSource, /<section class="landmark-editor"><h4 class="editor-heading"><b class="stage-number">3<\/b>/,'Route elements must remain visible without a details toggle');
+assert.match(appSource, /box = '0 0 100 100'/,'Junction previews must use the same drawing area and line scale as the other techniques');
 assert.match(indexSource, /<div id="app"><\/div>/);
 assert.doesNotMatch(appSource, /#element-library.*\.innerHTML|#route-steps.*\.innerHTML/);
 assert.match(appSource, /class="app-footer footer"/);
 assert.match(appSource, /data-insert-index="0"/);
 assert.match(appSource, /insertRouteItemBefore/);
+assert.doesNotMatch(appSource, /structuredClone\(draft\./,'Reactive draft values must be copied without cloning Vue proxies');
+assert.match(appSource, /class="stripkaart-layout"/,'The stripkaart builder needs a grouped editor and live preview');
+assert.match(appSource, /viewBox="0 0 100 \$\{stripkaartHeight\(points\)\}"/,'The stripkaart preview must use the shared variable arrow height');
+assert.match(appSource, /class="stripkaart-point"[^]*?<select/,'Stripkaart points must use the app\'s select controls');
+assert.equal((appSource.match(/v-for="count in \[0, 1, 2, 3, 4\]"/g)??[]).length,4,'Both stripkaart editors must limit left and right side roads to four');
+assert.match(appSource, /field: 'stripkaart-point-faint'/,'Stripkaart side roads must expose faint-path controls');
+assert.equal((appSource.match(/class="stripkaart-faint-column"/g)??[]).length,4,'Left and right faint-path controls must have separate columns in both stripkaart editors');
+assert.equal((appSource.match(/class="stripkaart-end-marker"/g)??[]).length,2,'Both stripkaart editors must expose the end-marking dropdown');
+assert.match(appSource, /endMarker: draft\.stripkaartEndMarker/,'New stripkaarten must save the selected end marking');
+assert.equal((appSource.match(/class="button primary add-step-button"[^>]*data-add-/g)??[]).length,7,'Every special-technique step button must use the shared full-width style');
+assert.match(styleSource, /\.builder-stage \.add-step-button\{grid-column:1\/-1;width:100%;margin-top:14px\}/,'Step add buttons must sit below the builder content at full width');
+assert.match(styleSource, /\.stripkaart-layout\{display:grid;grid-template-columns:minmax\(170px,200px\) minmax\(0,1fr\);gap:16px;align-items:stretch/,'The large stripkaart preview must occupy a dedicated left column');
+assert.match(styleSource, /\.step-card \.junction\{[^}]*background:#fff/,'Step preview tiles must use a white background');
 assert.match(styleSource, /\.element-grid\{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px\}/);
 assert.match(appSource, /https:\/\/www\.linkedin\.com\/in\/wouter-van-der-ven\//);
 assert.match(appSource, /https:\/\/github\.com\/vandervenwouter\/hike-generator/);

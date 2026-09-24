@@ -791,7 +791,7 @@ assert.match(appSource, /https:\/\/github\.com\/vandervenwouter\/hike-generator/
 
 const loadSavedHikes=(storage,failWrites=false)=>{
   const mounted=[],events=new Map();let app;
-  runInNewContext(`${componentSources.App.replace(/^export default /m,'const App = ')}\n${bootstrapSource}`.replace(/^import[^\n]+\n/gm,''),{
+  runInNewContext(`${componentSources.App.replace(/^export default /m,'const App = ')}\n${bootstrapSource}`.replace(/^import[\s\S]*?;\n/gm,''),{
     ...hikeSheet,...components,structuredClone,AbortController,refreshIcons(){},setTimeout(){},clearTimeout(){},
     createApp:component=>({mount(){app=component.setup();mounted.forEach(callback=>callback());}}),
     defineComponent:component=>component,reactive:value=>value,toRaw:value=>value,ref:value=>({value}),computed:get=>({get value(){return get();}}),

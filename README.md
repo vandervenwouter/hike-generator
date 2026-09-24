@@ -17,3 +17,12 @@ turns it into a printable A4 route sheet.
 
 The app runs directly in the browser and is designed to turn a route idea into
 a practical route sheet quickly.
+
+## Local development
+
+Run `npm run dev` and open [the local preview](http://127.0.0.1:4173/).
+Run `npm test` to check the app.
+
+Each Vue component lives in `dist/components/`. `dist/app.js` imports and mounts
+the root component; shared drawing and icon helpers live in `dist/diagrams.js`
+and `dist/icons.js`. The browser loads these modules directly, with no build step.

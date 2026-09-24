@@ -735,27 +735,36 @@ for(const element of elements){
   }
 }
 
-const appSource = readFileSync('dist/app.js', 'utf8');
+const componentNames = ['RoadTypeEditor', 'LandmarkEditor', 'StepCard', 'HikeEditor', 'Toolbar', 'StepLibrary', 'PreviewPanel', 'App'];
+const componentSources = Object.fromEntries(componentNames.map(name => [name, readFileSync(`dist/components/${name}.js`, 'utf8')]));
+const components = Object.fromEntries(await Promise.all(componentNames.map(async name => [name, (await import(`./dist/components/${name}.js`)).default])));
+const bootstrapSource = readFileSync('dist/app.js', 'utf8');
+const appSource = [bootstrapSource, readFileSync('dist/diagrams.js', 'utf8'), readFileSync('dist/icons.js', 'utf8'), ...Object.values(componentSources)].join('\n');
 const indexSource = readFileSync('dist/index.html', 'utf8');
 const hikeSheetSource = readFileSync('dist/hike-sheet.js', 'utf8');
 const styleSource = readFileSync('dist/style.css', 'utf8');
-for (const component of ['RoadTypeEditor', 'LandmarkEditor', 'StepCard', 'HikeEditor', 'Toolbar', 'StepLibrary', 'PreviewPanel', 'App']) {
-  assert.match(appSource, new RegExp(`const ${component} = defineComponent`), `${component} component is missing`);
+for (const name of componentNames) {
+  assert.equal(typeof components[name].setup, 'function', `${name} must export a Vue component`);
+  assert.equal(typeof components[name].template, 'string', `${name} must include its template`);
 }
-assert.match(appSource, /createApp\(App\)\.mount\('#app'\)/);
+for (const [parent, children] of [['App', ['Toolbar', 'HikeEditor', 'StepLibrary', 'PreviewPanel']], ['HikeEditor', ['StepCard']], ['StepCard', ['RoadTypeEditor', 'LandmarkEditor']]]) {
+  for (const child of children) assert.equal(components[parent].components[child], components[child], `${parent} must register the imported ${child}`);
+}
+assert.match(bootstrapSource, /import App from '\.\/components\/App\.js'/);
+assert.match(bootstrapSource, /createApp\(App\)\.mount\('#app'\)/);
 assert.doesNotMatch(appSource, /filter\(count => count < 6\)/,'The six-way intersection must remain available in the picker');
 assert.doesNotMatch(indexSource, /data-theme|theme-toggle|toggle-theme/,'Theme state must not be present in the document');
 assert.match(indexSource, /<meta name="theme-color" content="#101612">/,'Browser chrome must use the fixed dark background');
 assert.doesNotMatch(appSource, /theme-toggle|toggle-theme|toggleTheme|hike-generator-theme|prefers-color-scheme|dataset\.theme|applyTheme/,'Light/dark state and controls must be removed');
 assert.doesNotMatch(appSource, /quiz-help|guide\.(clock|input|photo|quiz|stripkaart)/,'Step builder help text must not be rendered');
-assert.doesNotMatch(appSource, /<label>\{\{ t\('quiz\.question'\) \}\}<textarea/,'Quiz questions must not use a visible label wrapper');
-assert.equal((appSource.match(/data-field="question" :aria-label="t\('quiz\.question'\)"/g) ?? []).length,2,'Quiz question textareas must keep an accessible name');
-assert.doesNotMatch(appSource, /<label>\{\{ t\('input\.value'\) \}\}<input class="free-text-input"/,'The free-text builder must not show a redundant field label');
-assert.match(appSource, /id="input-value" :aria-label="t\('input\.value'\)"/,'The free-text builder input must keep an accessible name');
+assert.doesNotMatch(appSource, /<label>\s*\{\{ t\('quiz\.question'\) \}\}\s*<textarea/,'Quiz questions must not use a visible label wrapper');
+assert.equal((appSource.match(/data-field="question"\s+:aria-label="t\('quiz\.question'\)"/g) ?? []).length,2,'Quiz question textareas must keep an accessible name');
+assert.doesNotMatch(appSource, /<label>\s*\{\{ t\('input\.value'\) \}\}\s*<input\s+class="free-text-input"/,'The free-text builder must not show a redundant field label');
+assert.match(appSource, /id="input-value"\s+:aria-label="t\('input\.value'\)"/,'The free-text builder input must keep an accessible name');
 assert.match(hikeSheetSource, /text\(translate\(language,`guide\.\$\{technique\}`\),70,y\+11/,'PDF technique explanations must remain visible');
 assert.doesNotMatch(styleSource, /data-theme|prefers-color-scheme/,'Theme selectors must be removed from the stylesheet');
-assert.match(appSource, /<section class="landmark-editor road-type-editor"><h4 class="editor-heading">/,'Junction road types must remain visible without a details toggle');
-assert.match(appSource, /<section class="landmark-editor"><h4 class="editor-heading">\{\{ t\('landmarks'\) \}\}<\/h4>/,'Route elements must remain visible without a step number or details toggle');
+assert.match(appSource, /<section class="landmark-editor road-type-editor">\s*<h4 class="editor-heading">/,'Junction road types must remain visible without a details toggle');
+assert.match(appSource, /<section class="landmark-editor">\s*<h4 class="editor-heading">\s*\{\{ t\('landmarks'\) \}\}\s*<\/h4>/,'Route elements must remain visible without a step number or details toggle');
 assert.ok(appSource.indexOf('<LandmarkEditor') < appSource.indexOf('class="step-fields step-note-fields"'),'The note field must follow junction controls, as it does for every other step type');
 assert.match(appSource, /box = '0 0 100 100'/,'Junction previews must use the same drawing area and line scale as the other techniques');
 assert.match(indexSource, /<div id="app"><\/div>/);
@@ -782,8 +791,8 @@ assert.match(appSource, /https:\/\/github\.com\/vandervenwouter\/hike-generator/
 
 const loadSavedHikes=(storage,failWrites=false)=>{
   const mounted=[],events=new Map();let app;
-  runInNewContext(appSource.replace(/^import[^\n]+\n/gm,''),{
-    ...hikeSheet,structuredClone,AbortController,setTimeout(){},clearTimeout(){},
+  runInNewContext(`${componentSources.App.replace(/^export default /m,'const App = ')}\n${bootstrapSource}`.replace(/^import[^\n]+\n/gm,''),{
+    ...hikeSheet,...components,structuredClone,AbortController,refreshIcons(){},setTimeout(){},clearTimeout(){},
     createApp:component=>({mount(){app=component.setup();mounted.forEach(callback=>callback());}}),
     defineComponent:component=>component,reactive:value=>value,toRaw:value=>value,ref:value=>({value}),computed:get=>({get value(){return get();}}),
     watch(){},onMounted:callback=>mounted.push(callback),onUpdated(){},onBeforeUnmount(){},nextTick:callback=>{callback?.();return Promise.resolve();},

@@ -3,7 +3,14 @@ import { useIcons } from '../icons.js';
 
 export default defineComponent({
   props: ['language', 'hasSteps', 'pdfBusy', 't'], emits: ['language-change', 'new-hike', 'import', 'export-json', 'export-pdf'],
-  setup() { useIcons(); },
+  setup(_, { emit }) {
+    useIcons();
+    const setLanguage = (event, language) => {
+      emit('language-change', language);
+      event.currentTarget.closest('details').removeAttribute('open');
+    };
+    return { setLanguage };
+  },
   template: `
     <header class="topbar">
       <a class="brand" href="./" :aria-label="t('home')">
@@ -11,20 +18,38 @@ export default defineComponent({
         hike-generator
       </a>
       <div class="top-actions">
-        <label class="sr-only" for="language">{{ t('language') }}</label>
-        <span class="language-picker">
-          <select
+        <details class="language-picker">
+          <summary
             class="language-select"
-            id="language"
-            :value="language"
             :aria-label="t('language')"
-            @change="$emit('language-change', $event.target.value)"
+            :title="t('language')"
           >
-            <option value="nl" title="Nederlands">🇳🇱</option>
-            <option value="en" title="English">🇬🇧</option>
-          </select>
-          <i data-lucide="chevron-down" aria-hidden="true"></i>
-        </span>
+            <span class="language-flag" aria-hidden="true">{{ language === 'nl' ? '🇳🇱' : '🇬🇧' }}</span>
+            <i data-lucide="chevron-down" aria-hidden="true"></i>
+          </summary>
+          <div class="language-options">
+            <button
+              class="language-option"
+              type="button"
+              aria-label="Nederlands"
+              :aria-current="language === 'nl' ? 'true' : undefined"
+              @click="setLanguage($event, 'nl')"
+            >
+              <span class="language-flag" aria-hidden="true">🇳🇱</span>
+              <span>Nederlands</span>
+            </button>
+            <button
+              class="language-option"
+              type="button"
+              aria-label="English"
+              :aria-current="language === 'en' ? 'true' : undefined"
+              @click="setLanguage($event, 'en')"
+            >
+              <span class="language-flag" aria-hidden="true">🇬🇧</span>
+              <span>English</span>
+            </button>
+          </div>
+        </details>
         <button
           class="button quiet top-icon-button"
           type="button"

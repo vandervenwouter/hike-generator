@@ -113,12 +113,12 @@ export const translations = {
     'element.Turn back':'Turn back',
     'group.Angled side road':'Angled side road','group.Angled T-junction':'Angled T-junction','group.Skewed crossroads':'Skewed crossroads',
     'technique.clock':'Clock','time':'Time','technique.quiz':'Quiz question','technique.input':'Free text','technique.photo':'Photo','input.value':'Text','step.numbered':'Count in step numbering','step.unnumbered':'without a number','input.placeholder':'e.g. cross the zebra crossing','photo.file':'Choose a PNG or JPG photo','photo.change':'Replace photo','photo.width':'Width in PDF','photo.fullWidth':'full width','photo.placeholder':'Choose a PNG or JPG photo','photo.invalid':'Choose a PNG or JPG photo.','quiz.question':'Question','quiz.questionPlaceholder':'e.g. How many legs does a spider have?','quiz.answer':'Answer {letter}','quiz.addAnswer':'Add answer','quiz.removeAnswer':'Remove answer {letter}','quiz.answers':'{count} answers','quiz.required':'Enter a question and fill in every answer.',
-    'meta.title':'hike-generator — Hike route builder','meta.description':'Build a hiking route one intersection at a time. Create clear, illustrated instructions and print your route on A4.',
-    'brand.builder':'ROUTE BUILDER','language':'Language','undo':'Undo','newRoute':'New route','newRouteLimit':'You can keep up to three local routes.','importRouteLimit':'You can keep up to three local routes. Delete one before importing another.','routeSlot':'Route {number}','deleteRoute':'Delete route','deleteRouteConfirm':'Delete route "{routeTitle}"?','resetRouteConfirm':'Delete route "{routeTitle}" and start a new one?','exportRoute':'Export route as JSON','importRoute':'Import route as JSON','routeExported':'Route file downloaded','routeImported':'Route imported','routeImportFailed':'Could not import route. {error}','downloadPdf':'Download PDF','preparingPdf':'Preparing PDF…',
-    'building.title':'Add step','addRouteItem':'Add step','insertRouteItem':'Add step after step {number}','insertRouteItemBefore':'Add step before step {number}','close':'Close','technique':'Route technique','technique.junction':'Situation sketch','technique.compass':'Compass bearing','technique.fraction':'Fractions','technique.dot-arrow':'Dot and arrow','technique.eyes':'Eyes','element.Hairpin left':'Hairpin left','element.Hairpin right':'Hairpin right','element.S-bend left':'S-bend left','element.S-bend right':'S-bend right','direction.0':'Go straight','direction.45':'Slight right','direction.90':'Turn right','direction.135':'Hard right','direction.180':'Turn back','direction.225':'Hard left','direction.270':'Turn left','direction.315':'Slight left','bearing':'Bearing','bearingLabel':'Bearing for step {number} in degrees','numerator':'Numerator','denominator':'Denominator','fractionLabel':'Fraction for step {number}','addCompass':'Add','roadCount':'Number of roads','roadCountOption':'{count} roads','roadLayout':'Road layout','junctionShape':'Junction shape','routeExit':'Choose the road to take','direction':'Your direction','roadEdges':'Road edges','approachHelp':'The dot marks where you enter the junction. Follow the arrow to your exit.',
-    'routeName':'Route name','untitled':'Route 1','distancePrompt':'Add distances as you go','start':'START','startPlaceholder':'Start note','finish':'FINISH','finishPlaceholder':'Finish note',
-    'printPreview':'Print preview A4','pdfOptions':'PDF options','includeTechniqueGuide':'Explain route techniques','printNote':'Six consistent diagrams per A4 sheet. Numbered automatically, ready to print.','printableRoute':'Printable route','intersectionLibrary':'Step library','routeEditor':'Route editor',
-    'step':'step','steps':'steps','page':'page','pages':'pages','distanceTotal':'{distance} m of noted distances','added':'Step {number} added','duplicated':'Step {number} duplicated','removed':'Step removed.','undone':'Last change undone','newReady':'New route started.','newConfirm':'Start a new route? The current route will be removed.','duplicateConfirm':'Are you sure you want to duplicate step {number}?','removeConfirm':'Are you sure you want to remove step {number}?','pdfReady':'Your A4 route sheet is ready','pdfFailed':'Could not create the PDF. {error}','saveFailed':'Your browser could not save this draft. Download your PDF before leaving.','loadFailed':'The saved draft could not be loaded. This route is temporary.','stepLimit':'A route can contain up to 300 steps.',
+    'meta.title':'hike-generator','meta.description':'Build a hike one intersection at a time. Create clear, illustrated instructions and print your hike on A4.',
+    'brand.builder':'HIKE BUILDER','language':'Language','undo':'Undo','newHike':'New hike','newHikeLimit':'You can keep up to three local hikes.','importHikeLimit':'You can keep up to three local hikes. Delete one before importing another.','hikeSlot':'Hike {number}','deleteHike':'Delete hike','deleteHikeConfirm':'Delete hike "{hikeTitle}"?','resetHikeConfirm':'Delete hike "{hikeTitle}" and start a new one?','exportHike':'Export hike as JSON','importHike':'Import hike as JSON','hikeExported':'Hike file downloaded','hikeImported':'Hike imported','hikeImportFailed':'Could not import hike. {error}','downloadPdf':'Download PDF','preparingPdf':'Preparing PDF…',
+    'building.title':'Add step','addHikeItem':'Add step','insertHikeItem':'Add step after step {number}','insertHikeItemBefore':'Add step before step {number}','close':'Close','technique':'Route technique','technique.junction':'Situation sketch','technique.compass':'Compass bearing','technique.fraction':'Fractions','technique.dot-arrow':'Dot and arrow','technique.eyes':'Eyes','element.Hairpin left':'Hairpin left','element.Hairpin right':'Hairpin right','element.S-bend left':'S-bend left','element.S-bend right':'S-bend right','direction.0':'Go straight','direction.45':'Slight right','direction.90':'Turn right','direction.135':'Hard right','direction.180':'Turn back','direction.225':'Hard left','direction.270':'Turn left','direction.315':'Slight left','bearing':'Bearing','bearingLabel':'Bearing for step {number} in degrees','numerator':'Numerator','denominator':'Denominator','fractionLabel':'Fraction for step {number}','addCompass':'Add','roadCount':'Number of roads','roadCountOption':'{count} roads','roadLayout':'Road layout','junctionShape':'Junction shape','hikeExit':'Choose the road to take','direction':'Your direction','roadEdges':'Road edges','approachHelp':'The dot marks where you enter the junction. Follow the arrow to your exit.',
+    'hikeName':'Hike name','untitled':'Hike 1','distancePrompt':'Add distances as you go','start':'START','startPlaceholder':'Start note','finish':'FINISH','finishPlaceholder':'Finish note',
+    'printPreview':'Print preview A4','pdfOptions':'PDF options','includeTechniqueGuide':'Explain route techniques','printNote':'Six consistent diagrams per A4 sheet. Numbered automatically, ready to print.','printableHike':'Printable hike','intersectionLibrary':'Step library','hikeEditor':'Hike editor',
+    'step':'step','steps':'steps','page':'page','pages':'pages','distanceTotal':'{distance} m of noted distances','added':'Step {number} added','duplicated':'Step {number} duplicated','removed':'Step removed.','undone':'Last change undone','newReady':'New hike started.','newConfirm':'Start a new hike? The current hike will be removed.','duplicateConfirm':'Are you sure you want to duplicate step {number}?','removeConfirm':'Are you sure you want to remove step {number}?','pdfReady':'Your A4 hike sheet is ready','pdfFailed':'Could not create the PDF. {error}','saveFailed':'Your browser could not save this draft. Download your PDF before leaving.','loadFailed':'The saved draft could not be loaded. This hike is temporary.','stepLimit':'A hike can contain up to 300 steps.',
     'moveUp':'Move step {number} up','moveDown':'Move step {number} down','duplicateStep':'Duplicate step {number}','removeStep':'Remove step {number}','distance':'Distance (m)','distancePlaceholder':'e.g. 200','distanceLabel':'Distance to step {number} in metres','note':'Landmark or note','notePlaceholder':'e.g. Cross at the zebra crossing','noteLabel':'Note for step {number}',
     'rotateLeft':'Rotate step {number} counterclockwise by 45 degrees','rotateRight':'Rotate step {number} clockwise by 45 degrees','rotation':'Rotation {degrees} degrees','rotateLeftTitle':'Rotate 45° counterclockwise','rotateRightTitle':'Rotate 45° clockwise',
     'roadTypes':'Road types','faintPath':'Faint path','markFaintPath':'Mark {road} as a faint path','landmarks':'Landmarks','add':'Add','item':'Item','roadArm':'Road arm','position':'Position','side.left':'Left side of road','side.right':'Right side of road','itemLabel':'Item for landmark {landmark} on step {step}','armLabel':'Road arm for landmark {landmark} on step {step}','positionLabel':'Position for landmark {landmark} on step {step}','removeLandmark':'Remove landmark {landmark} from step {step}','addLandmark':'Add landmark',
@@ -134,12 +134,12 @@ export const translations = {
     'element.Turn back':'Omkeren',
     'group.Angled side road':'Schuine zijweg','group.Angled T-junction':'Schuine T-splitsing','group.Skewed crossroads':'Schuin kruispunt',
     'technique.clock':'Klok','time':'Tijd','technique.quiz':'Quizvraag','technique.input':'Vrije tekst','technique.photo':'Foto','input.value':'Tekst','step.numbered':'Meetellen in stapnummering','step.unnumbered':'zonder nummer','input.placeholder':'bijv. steek het zebrapad over','photo.file':'Kies een PNG- of JPG-foto','photo.change':'Foto vervangen','photo.width':'Breedte in PDF','photo.fullWidth':'volledige breedte','photo.placeholder':'Kies een PNG- of JPG-foto','photo.invalid':'Kies een PNG- of JPG-foto.','quiz.question':'Vraag','quiz.questionPlaceholder':'bijv. Hoeveel poten heeft een spin?','quiz.answer':'Antwoord {letter}','quiz.addAnswer':'Antwoord toevoegen','quiz.removeAnswer':'Antwoord {letter} verwijderen','quiz.answers':'{count} antwoorden','quiz.required':'Vul de vraag en alle antwoorden in.',
-    'meta.title':'hike-generator — Wandelroutebouwer','meta.description':'Bouw stap voor stap een wandelroute met duidelijke kruispunttekeningen en print deze op A4.',
-    'brand.builder':'ROUTEBOUWER','language':'Taal','undo':'Ongedaan maken','newRoute':'Nieuwe route','newRouteLimit':'Je kunt maximaal drie lokale routes bewaren.','importRouteLimit':'Je kunt maximaal drie lokale routes bewaren. Verwijder eerst een route voordat je een andere importeert.','routeSlot':'Route {number}','deleteRoute':'Route verwijderen','deleteRouteConfirm':'Route "{routeTitle}" verwijderen?','resetRouteConfirm':'Route "{routeTitle}" verwijderen en een nieuwe route starten?','exportRoute':'Route exporteren als JSON','importRoute':'Route importeren als JSON','routeExported':'Routebestand gedownload','routeImported':'Route geïmporteerd','routeImportFailed':'Route kon niet worden geïmporteerd. {error}','downloadPdf':'PDF downloaden','preparingPdf':'PDF voorbereiden…',
-    'building.title':'Stap toevoegen','addRouteItem':'Stap toevoegen','insertRouteItem':'Stap toevoegen na stap {number}','insertRouteItemBefore':'Stap toevoegen vóór stap {number}','close':'Sluiten','technique':'Routetechniek','technique.junction':'Kruispunten','technique.compass':'Graden schieten','technique.fraction':'Breuken','technique.dot-arrow':'Bolletje-pijltje','technique.eyes':'Oogjes','element.Hairpin left':'Haarspeld links','element.Hairpin right':'Haarspeld rechts','element.S-bend left':'S-bocht links','element.S-bend right':'S-bocht rechts','direction.0':'Rechtdoor','direction.45':'Schuin rechts','direction.90':'Rechtsaf','direction.135':'Scherp rechts','direction.180':'Terug','direction.225':'Scherp links','direction.270':'Linksaf','direction.315':'Schuin links','bearing':'Koers in graden','bearingLabel':'Koers van stap {number} in graden','numerator':'Teller','denominator':'Noemer','fractionLabel':'Breuk bij stap {number}','addCompass':'Toevoegen','roadCount':'Aantal wegen','roadCountOption':'{count} wegen','roadLayout':'Weg-layout','junctionShape':'Kruispuntvorm','routeExit':'Te nemen weg','direction':'Jouw richting','roadEdges':'Wegkanten','approachHelp':'De stip geeft aan waar je het kruispunt opkomt. Volg de pijl naar de uitgang.',
-    'routeName':'Routenaam','untitled':'Route 1','distancePrompt':'Voeg desgewenst afstanden toe','start':'START','startPlaceholder':'Opmerking bij het startpunt','finish':'EIND','finishPlaceholder':'Opmerking bij het eindpunt',
-    'printPreview':'Afdrukvoorbeeld A4','pdfOptions':'PDF-opties','includeTechniqueGuide':'Uitleg routetechnieken','printNote':'Zes consistente tekeningen per A4. Automatisch genummerd en klaar om te printen.','printableRoute':'Printbare route','intersectionLibrary':'Stappenbibliotheek','routeEditor':'Routebewerker',
-    'step':'stap','steps':'stappen','page':'pagina','pages':'pagina’s','distanceTotal':'{distance} m aan opgegeven afstanden','added':'Stap {number} toegevoegd','duplicated':'Stap {number} gedupliceerd','removed':'Stap verwijderd.','undone':'Laatste wijziging ongedaan gemaakt','newReady':'Nieuwe route gestart.','newConfirm':'Nieuwe route starten? De huidige route wordt verwijderd.','duplicateConfirm':'Weet je zeker dat je stap {number} wilt dupliceren?','removeConfirm':'Weet je zeker dat je stap {number} wilt verwijderen?','pdfReady':'Je A4-routeblad is klaar','pdfFailed':'De PDF kon niet worden gemaakt. {error}','saveFailed':'Je browser kon dit concept niet opslaan. Download je PDF voordat je de pagina verlaat.','loadFailed':'Het opgeslagen concept kon niet worden geladen. Deze route is tijdelijk.','stepLimit':'Een route kan maximaal 300 stappen bevatten.',
+    'meta.title':'hike-generator','meta.description':'Bouw stap voor stap een hike met duidelijke kruispunttekeningen en print deze op A4.',
+    'brand.builder':'HIKEBOUWER','language':'Taal','undo':'Ongedaan maken','newHike':'Nieuwe hike','newHikeLimit':'Je kunt maximaal drie lokale hikes bewaren.','importHikeLimit':'Je kunt maximaal drie lokale hikes bewaren. Verwijder eerst een hike voordat je een andere importeert.','hikeSlot':'Hike {number}','deleteHike':'Hike verwijderen','deleteHikeConfirm':'Hike "{hikeTitle}" verwijderen?','resetHikeConfirm':'Hike "{hikeTitle}" verwijderen en een nieuwe starten?','exportHike':'Hike exporteren als JSON','importHike':'Hike importeren als JSON','hikeExported':'Hikebestand gedownload','hikeImported':'Hike geïmporteerd','hikeImportFailed':'Hike kon niet worden geïmporteerd. {error}','downloadPdf':'PDF downloaden','preparingPdf':'PDF voorbereiden…',
+    'building.title':'Stap toevoegen','addHikeItem':'Stap toevoegen','insertHikeItem':'Stap toevoegen na stap {number}','insertHikeItemBefore':'Stap toevoegen vóór stap {number}','close':'Sluiten','technique':'Routetechniek','technique.junction':'Kruispunten','technique.compass':'Graden schieten','technique.fraction':'Breuken','technique.dot-arrow':'Bolletje-pijltje','technique.eyes':'Oogjes','element.Hairpin left':'Haarspeld links','element.Hairpin right':'Haarspeld rechts','element.S-bend left':'S-bocht links','element.S-bend right':'S-bocht rechts','direction.0':'Rechtdoor','direction.45':'Schuin rechts','direction.90':'Rechtsaf','direction.135':'Scherp rechts','direction.180':'Terug','direction.225':'Scherp links','direction.270':'Linksaf','direction.315':'Schuin links','bearing':'Koers in graden','bearingLabel':'Koers van stap {number} in graden','numerator':'Teller','denominator':'Noemer','fractionLabel':'Breuk bij stap {number}','addCompass':'Toevoegen','roadCount':'Aantal wegen','roadCountOption':'{count} wegen','roadLayout':'Weg-layout','junctionShape':'Kruispuntvorm','hikeExit':'Te nemen weg','direction':'Jouw richting','roadEdges':'Wegkanten','approachHelp':'De stip geeft aan waar je het kruispunt opkomt. Volg de pijl naar de uitgang.',
+    'hikeName':'Hikenaam','untitled':'Hike 1','distancePrompt':'Voeg desgewenst afstanden toe','start':'START','startPlaceholder':'Opmerking bij het startpunt','finish':'EIND','finishPlaceholder':'Opmerking bij het eindpunt',
+    'printPreview':'Afdrukvoorbeeld A4','pdfOptions':'PDF-opties','includeTechniqueGuide':'Uitleg routetechnieken','printNote':'Zes consistente tekeningen per A4. Automatisch genummerd en klaar om te printen.','printableHike':'Printbare hike','intersectionLibrary':'Stappenbibliotheek','hikeEditor':'Hikebewerker',
+    'step':'stap','steps':'stappen','page':'pagina','pages':'pagina’s','distanceTotal':'{distance} m aan opgegeven afstanden','added':'Stap {number} toegevoegd','duplicated':'Stap {number} gedupliceerd','removed':'Stap verwijderd.','undone':'Laatste wijziging ongedaan gemaakt','newReady':'Nieuwe hike gestart.','newConfirm':'Nieuwe hike starten? De huidige hike wordt verwijderd.','duplicateConfirm':'Weet je zeker dat je stap {number} wilt dupliceren?','removeConfirm':'Weet je zeker dat je stap {number} wilt verwijderen?','pdfReady':'Je A4-hikeblad is klaar','pdfFailed':'De PDF kon niet worden gemaakt. {error}','saveFailed':'Je browser kon dit concept niet opslaan. Download je PDF voordat je de pagina verlaat.','loadFailed':'Het opgeslagen concept kon niet worden geladen. Deze hike is tijdelijk.','stepLimit':'Een hike kan maximaal 300 stappen bevatten.',
     'moveUp':'Verplaats stap {number} omhoog','moveDown':'Verplaats stap {number} omlaag','duplicateStep':'Dupliceer stap {number}','removeStep':'Verwijder stap {number}','distance':'Afstand (m)','distancePlaceholder':'bijv. 200','distanceLabel':'Afstand tot stap {number} in meters','note':'Opmerking','notePlaceholder':'bijv. Oversteken via het zebrapad','noteLabel':'Opmerking bij stap {number}',
     'rotateLeft':'Draai stap {number} 45 graden linksom','rotateRight':'Draai stap {number} 45 graden rechtsom','rotation':'Draaiing {degrees} graden','rotateLeftTitle':'Draai 45° linksom','rotateRightTitle':'Draai 45° rechtsom',
     'roadTypes':'Wegtypen','faintPath':'Hazenpaadje','markFaintPath':'Markeer {road} als hazenpaadje','landmarks':'Route-elementen','add':'Toevoegen','item':'Element','roadArm':'Wegtak','position':'Plaatsing','side.left':'Links van de weg','side.right':'Rechts van de weg','itemLabel':'Element {landmark} bij stap {step}','armLabel':'Wegtak voor element {landmark} bij stap {step}','positionLabel':'Plaatsing van element {landmark} bij stap {step}','removeLandmark':'Verwijder element {landmark} van stap {step}','addLandmark':'Element toevoegen',
@@ -504,7 +504,7 @@ export function junctionDiagramScale(element,placements=[]){
   return Math.min(1,100/(bounds[1]-bounds[0]),100/(bounds[3]-bounds[2]));
 }
 export const dotArrowDirections = [0,45,90,135,180,225,270,315];
-// Retired picker shapes remain readable in saved routes.
+// Retired picker shapes remain readable in saved hikes.
 export const dotArrowShapes = [
   ...['bend-left','bend-right'].map(id=>elements.find(element=>element.id===id)),
   {id:'hairpin-left',name:'Hairpin left',route:'M50 84V36Q50 18 32 18T14 36V76',...arrowAt(14,76,90)},
@@ -569,12 +569,12 @@ export function clockLayers(){
   ];
 }
 export const rotateStep = (step,degrees) => {step.rotation=((step.rotation??0)+degrees+360)%360;};
-export const blankRoute = () => ({title:'',start:'',finish:'',includeTechniqueExplanation:false,includeCredits:true,steps:[]});
+export const blankHike = () => ({title:'',start:'',finish:'',includeTechniqueExplanation:false,includeCredits:true,steps:[]});
 export const stepsPerPage = 15;
 export const quizLetter = index => String.fromCharCode(65+index);
-export function stepNumbers(route){
+export function stepNumbers(hike){
   let number=0;
-  return route.steps.map(step=>['input','photo'].includes(step.technique)&&step.numbered===false?null:++number);
+  return hike.steps.map(step=>['input','photo'].includes(step.technique)&&step.numbered===false?null:++number);
 }
 const quizHeight = step => 9+Math.ceil(step.answers.length/2)*6+(step.note.trim()?6:0);
 const stepColumns = step => step.technique==='photo'?(step.columns??1):1;
@@ -587,12 +587,12 @@ export const junctionCardHeight = step => {
   const margin=4,diagramHeight=100*baseScale/junctionDiagramScale(element,step.landmarks);
   return Math.max(hasNote?46:44,margin*2+diagramHeight);
 };
-export function routePages(route){
+export function hikePages(hike){
   const pages=[[]];let used=0;
-  for(let start=0;start<route.steps.length;){
+  for(let start=0;start<hike.steps.length;){
     const steps=[];let columns=0;
-    for(let index=start;index<route.steps.length;index++){
-      const step=route.steps[index];
+    for(let index=start;index<hike.steps.length;index++){
+      const step=hike.steps[index];
       if(columns+stepColumns(step)>3)break;
       steps.push(step);columns+=stepColumns(step);
     }
@@ -603,16 +603,16 @@ export function routePages(route){
   }
   return pages;
 }
-export const pageCount = route => routePages(route).length;
-export function routeTechniques(route){
-  return [...new Set(route.steps.map(step=>step.technique??'junction').filter(technique=>technique!=='input'))];
+export const pageCount = hike => hikePages(hike).length;
+export function hikeTechniques(hike){
+  return [...new Set(hike.steps.map(step=>step.technique??'junction').filter(technique=>technique!=='input'))];
 }
-export const documentPageCount = route => pageCount(route)+(route.includeTechniqueExplanation&&routeTechniques(route).length?1:0);
-export const serializeRoute = route => JSON.stringify({format:'hike-generator-route',version:1,route:validateRoute(route)},null,2);
+export const documentPageCount = hike => pageCount(hike)+(hike.includeTechniqueExplanation&&hikeTechniques(hike).length?1:0);
+export const serializeHike = hike => JSON.stringify({format:'hike-generator-hike',version:1,hike:validateHike(hike)},null,2);
 const photoImageCache=new Map();
 const photoPattern=/^data:image\/(?:png|jpeg);base64,[A-Za-z0-9+/]+={0,2}$/;
-export function preloadPhotos(route){
-  const sources=[...new Set(route.steps.filter(step=>step.technique==='photo').map(step=>step.image))];
+export function preloadPhotos(hike){
+  const sources=[...new Set(hike.steps.filter(step=>step.technique==='photo').map(step=>step.image))];
   if(typeof Image==='undefined')return Promise.resolve();
   return Promise.all(sources.map(source=>{
     if(photoImageCache.has(source))return photoImageCache.get(source);
@@ -627,22 +627,19 @@ function drawPhoto(ctx,source,x,y,width,height,label='Photo'){
   }
   ctx.strokeStyle='#000000';ctx.lineWidth=.5;ctx.strokeRect(x,y,width,height);ctx.fillStyle='#000000';ctx.font='700 3px Arial, sans-serif';ctx.textAlign='center';ctx.textBaseline='middle';fillCanvasText(ctx,label,x+width/2,y+height/2);ctx.textAlign='left';ctx.textBaseline='top';
 }
-export function parseRoute(text){
-  if(typeof text!=='string'||text.length>1_000_000)throw Error('Invalid route file.');
+export function parseHike(text){
+  if(typeof text!=='string'||text.length>1_000_000)throw Error('Invalid hike file.');
   const value=JSON.parse(text);
-  if(value&&typeof value==='object'&&'format' in value){
-    if(value.format!=='hike-generator-route'||value.version!==1)throw Error('Unsupported route file.');
-    return validateRoute(value.route);
-  }
-  return validateRoute(value);
+  if(value?.format!=='hike-generator-hike'||value.version!==1)throw Error('Unsupported hike file.');
+  return validateHike(value.hike);
 }
-export function validateRoute(value){
-  if(!value || typeof value!=='object') throw Error('Invalid route.');
+export function validateHike(value){
+  if(!value || typeof value!=='object') throw Error('Invalid hike.');
   for(const [key,max] of [['title',80],['start',100],['finish',100]]) if(typeof value[key]!=='string'||value[key].length>max) throw Error(`Invalid ${key}.`);
   const includeTechniqueExplanation=value.includeTechniqueExplanation??false;
   const includeCredits=value.includeCredits??true;
   if(typeof includeTechniqueExplanation!=='boolean'||typeof includeCredits!=='boolean')throw Error('Invalid PDF options.');
-  if(!Array.isArray(value.steps)||value.steps.length>300) throw Error('A route can contain up to 300 steps.');
+  if(!Array.isArray(value.steps)||value.steps.length>300) throw Error('A hike can contain up to 300 steps.');
   const steps=value.steps.map(step=>{
     if(!step || typeof step.note!=='string' || step.note.length>160 || typeof step.distance!=='string' || (step.distance!==''&&!/^\d{1,6}$/.test(step.distance))) throw Error('Invalid route instruction.');
     if(step.technique==='compass'){
@@ -746,14 +743,14 @@ function drawLayers(ctx,Path,layers,rotation=0){
     const path=new Path(layer.path);if(layer.fill)ctx.fill(path,layer.fillRule??'nonzero');if(layer.width)ctx.stroke(path);ctx.restore();
   }
 }
-export function drawTechniqueGuide(canvas,route,scale=3,Path=Path2D,language='en'){
+export function drawTechniqueGuide(canvas,hike,scale=3,Path=Path2D,language='en'){
   canvas.width=210*scale;canvas.height=297*scale;
   const ctx=canvas.getContext('2d');ctx.scale(scale,scale);ctx.fillStyle='#fff';ctx.fillRect(0,0,210,297);ctx.textBaseline='top';ctx.lineCap='round';ctx.lineJoin='round';
   function text(value,x,y,size=3.5,weight=400,color='#000000',width=118,maxLines=8){ctx.fillStyle='#000000';ctx.font=`${weight} ${size}px Arial, sans-serif`;wrap(ctx,value,width).slice(0,maxLines).forEach((line,i)=>fillCanvasText(ctx,line,x,y+i*size*1.35));}
   text(translate(language,'guide.title'),14,13,7,700,'#000000',182,2);
-  const techniques=routeTechniques(route),stride=Math.min(70,240/techniques.length),height=stride-10;
+  const techniques=hikeTechniques(hike),stride=Math.min(70,240/techniques.length),height=stride-10;
   techniques.forEach((technique,index)=>{
-    const y=37+index*stride,step=route.steps.find(item=>(item.technique??'junction')===technique);
+    const y=37+index*stride,step=hike.steps.find(item=>(item.technique??'junction')===technique);
     ctx.strokeStyle='#000000';ctx.lineWidth=.25;ctx.strokeRect(14,y,182,height);
     ctx.save();
     if(technique==='fraction'||technique==='quiz'){ctx.fillStyle='#000000';ctx.font='700 12px Arial, sans-serif';ctx.textAlign='center';ctx.textBaseline='middle';fillCanvasText(ctx,technique==='quiz'?'A B C':`${step.numerator}/${step.denominator}`,40,y+height/2);}
@@ -770,12 +767,12 @@ export function drawTechniqueGuide(canvas,route,scale=3,Path=Path2D,language='en
     text(translate(language,`guide.${technique}`),70,y+11,3.1,400,'#000000',112,7);
   });
   ctx.strokeStyle='#000000';ctx.lineWidth=.25;ctx.beginPath();ctx.moveTo(14,281);ctx.lineTo(196,281);ctx.stroke();
-  if(route.includeCredits)text(translate(language,'pdf.credits'),14,285,2.7,400,'#000000',140,1);
-  text(translate(language,'pdf.page',{page:1,pages:documentPageCount(route)}),175,285,2.7,700,'#000000',21,1);
+  if(hike.includeCredits)text(translate(language,'pdf.credits'),14,285,2.7,400,'#000000',140,1);
+  text(translate(language,'pdf.page',{page:1,pages:documentPageCount(hike)}),175,285,2.7,700,'#000000',21,1);
   return canvas;
 }
 // The same drawing renders the preview and the 305 dpi PDF: no second layout to drift.
-export function drawSheet(canvas,route,pageIndex,scale=3,Path=Path2D,language='en'){
+export function drawSheet(canvas,hike,pageIndex,scale=3,Path=Path2D,language='en'){
   canvas.width=210*scale;canvas.height=297*scale;
   const ctx=canvas.getContext('2d');ctx.scale(scale,scale);ctx.fillStyle='#fff';ctx.fillRect(0,0,210,297);
   ctx.textBaseline='top';ctx.lineCap='round';ctx.lineJoin='round';
@@ -788,12 +785,12 @@ export function drawSheet(canvas,route,pageIndex,scale=3,Path=Path2D,language='e
   }
   function rule(x,y,w,color='#000000'){ctx.strokeStyle='#000000';ctx.lineWidth=.25;ctx.beginPath();ctx.moveTo(x,y);ctx.lineTo(x+w,y);ctx.stroke();}
   function endpoint(label,note,y){const top=ctx.textBaseline,baseline=y+3.4;ctx.textBaseline='alphabetic';text(label,14,baseline,2.8,700);if(note.trim())text(note.replace(/\s+/g,' '),26,baseline,3.4,400,'#000000',170,2);ctx.textBaseline=top;}
-  const title=route.title.replace(/\s+/g,' ').trim(),startY=title?28:13;
+  const title=hike.title.replace(/\s+/g,' ').trim(),startY=title?28:13;
   if(title)text(title,14,13,7,700,'#000000',182,2);
-  if(pageIndex===0)endpoint(translate(language,'start'),route.start,startY);
-  const numbers=stepNumbers(route);
+  if(pageIndex===0)endpoint(translate(language,'start'),hike.start,startY);
+  const numbers=stepNumbers(hike);
   let y=pageIndex===0?startY+13:title?34:13;
-  for(const {start,steps} of routePages(route)[pageIndex]){
+  for(const {start,steps} of hikePages(hike)[pageIndex]){
     const cards=steps.map(step=>{
       const note=step.note.replace(/\s+/g,' ').trim();
       ctx.font='400 2px Arial, sans-serif';
@@ -841,22 +838,22 @@ export function drawSheet(canvas,route,pageIndex,scale=3,Path=Path2D,language='e
     });
     y+=Math.max(...cards.map(card=>card.height))+2;
   }
-  if(pageIndex===pageCount(route)-1)endpoint(translate(language,'finish'),route.finish,Math.min(y+2,267));
-  const pageOffset=route.includeTechniqueExplanation&&routeTechniques(route).length?1:0;
-  rule(14,281,182);if(route.includeCredits)text(translate(language,'pdf.credits'),14,285,2.7,400,'#000000',140,1);text(translate(language,'pdf.page',{page:pageIndex+1+pageOffset,pages:documentPageCount(route)}),175,285,2.7,700,'#000000',21,1);
+  if(pageIndex===pageCount(hike)-1)endpoint(translate(language,'finish'),hike.finish,Math.min(y+2,267));
+  const pageOffset=hike.includeTechniqueExplanation&&hikeTechniques(hike).length?1:0;
+  rule(14,281,182);if(hike.includeCredits)text(translate(language,'pdf.credits'),14,285,2.7,400,'#000000',140,1);text(translate(language,'pdf.page',{page:pageIndex+1+pageOffset,pages:documentPageCount(hike)}),175,285,2.7,700,'#000000',21,1);
   return canvas;
 }
-export async function createPDF(route,makeCanvas=()=>document.createElement('canvas'),Path=Path2D,language='en'){
-  route=validateRoute(route);
-  if(!route.steps.length) throw Error(translate(language,'pdf.noSteps'));
-  if(route.steps.some(step=>step.technique==='quiz'&&(!step.question.trim()||step.answers.some(answer=>!answer.trim()))))throw Error(translate(language,'quiz.required'));
-  await preloadPhotos(route);
+export async function createPDF(hike,makeCanvas=()=>document.createElement('canvas'),Path=Path2D,language='en'){
+  hike=validateHike(hike);
+  if(!hike.steps.length) throw Error(translate(language,'pdf.noSteps'));
+  if(hike.steps.some(step=>step.technique==='quiz'&&(!step.question.trim()||step.answers.some(answer=>!answer.trim()))))throw Error(translate(language,'quiz.required'));
+  await preloadPhotos(hike);
   const {PDFDocument}=await import('./vendor/pdf-lib.js');
-  const pdf=await PDFDocument.create();if(route.title.trim())pdf.setTitle(route.title.trim());pdf.setCreator('hike-generator');
+  const pdf=await PDFDocument.create();if(hike.title.trim())pdf.setTitle(hike.title.trim());pdf.setCreator('hike-generator');
   async function addCanvas(canvas){const image=await pdf.embedPng(canvas.toDataURL('image/png'));pdf.addPage([595.27559,841.88976]).drawImage(image,{x:0,y:0,width:595.27559,height:841.88976});canvas.width=canvas.height=0;}
-  if(route.includeTechniqueExplanation&&routeTechniques(route).length)await addCanvas(drawTechniqueGuide(makeCanvas(),route,12,Path,language));
-  for(let i=0;i<pageCount(route);i++){
-    await addCanvas(drawSheet(makeCanvas(),route,i,12,Path,language));
+  if(hike.includeTechniqueExplanation&&hikeTechniques(hike).length)await addCanvas(drawTechniqueGuide(makeCanvas(),hike,12,Path,language));
+  for(let i=0;i<pageCount(hike);i++){
+    await addCanvas(drawSheet(makeCanvas(),hike,i,12,Path,language));
   }
   return pdf.save();
 }

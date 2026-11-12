@@ -209,6 +209,7 @@ export const translations = {
     'printPreview': 'Print preview A4',
     'pdfOptions': 'PDF options',
     'includeTechniqueGuide': 'Explain route techniques',
+    'hidePdfCredits': 'Hide credits in footer',
     'printNote': 'Six consistent diagrams per A4 sheet. Numbered automatically, ready to print.',
     'printableHike': 'Printable hike',
     'intersectionLibrary': 'Step library',
@@ -450,6 +451,7 @@ export const translations = {
     'printPreview': 'Afdrukvoorbeeld A4',
     'pdfOptions': 'PDF-opties',
     'includeTechniqueGuide': 'Uitleg routetechnieken',
+    'hidePdfCredits': 'Verberg credits in footer',
     'printNote': 'Zes consistente tekeningen per A4. Automatisch genummerd en klaar om te printen.',
     'printableHike': 'Printbare hike',
     'intersectionLibrary': 'Stappenbibliotheek',
@@ -1114,7 +1116,7 @@ export function validateHike(value){
     });
     return {element:step.element,note:step.note,distance:step.distance,rotation,faintArms,landmarks:placements};
   });
-  return {title:value.title,start:value.start,finish:value.finish,includeTechniqueExplanation,includeCredits:true,steps};
+  return {title:value.title,start:value.start,finish:value.finish,includeTechniqueExplanation,includeCredits,steps};
 }
 function wrap(ctx,text,width){
   const lines=[];

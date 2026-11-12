@@ -349,6 +349,12 @@ drawSheet({getContext:()=>ctx},guideHike,0,1,class{});
 assert.ok(printed.includes('Route technique guide')&&printed.includes('Situation sketch')&&printed.includes('Compass bearing')&&printed.includes('Fractions')&&printed.includes('Dot and arrow')&&printed.includes('Eyes')&&!printed.includes('Free text')&&printed.includes('Photo'),'The guide must explain every used technique except free text');
 assert.ok(printed.includes('PAGE 1 / 2')&&printed.includes('PAGE 2 / 2'),'Guide and hike pages must share continuous page numbers');
 assert.equal(printed.filter(value=>value==='created with hike-generator by Wouter van der Ven').length-creditsBeforeGuide,2,'Credits must appear in every PDF footer');
+const creditsBeforeHiddenPages=printed.filter(value=>value==='created with hike-generator by Wouter van der Ven').length;
+const hiddenCreditsHike={...guideHike,includeCredits:false};
+assert.deepEqual(parseHike(serializeHike(hiddenCreditsHike)),hiddenCreditsHike,'The hidden-credits option must survive export and import');
+drawTechniqueGuide({getContext:()=>ctx},hiddenCreditsHike,1,class{});
+drawSheet({getContext:()=>ctx},hiddenCreditsHike,0,1,class{});
+assert.equal(printed.filter(value=>value==='created with hike-generator by Wouter van der Ven').length,creditsBeforeHiddenPages,'Hidden credits must stay out of every PDF footer');
 for(const invalid of [{element:'unknown'},{distance:'-1'},{distance:'1.5'},{note:'x'.repeat(161)}]){
   assert.throws(()=>validateHike({...hike,steps:[{...hike.steps[0],...invalid}]}));
 }
@@ -358,7 +364,7 @@ assert.throws(()=>validateHike(null));
 const {includeTechniqueExplanation:discardedGuide,includeCredits:discardedCredits,...oldHike}=hike;
 assert.equal(validateHike(oldHike).includeTechniqueExplanation,false,'Old hike files must keep the guide disabled');
 assert.equal(validateHike(oldHike).includeCredits,true,'Credits must stay enabled for old hike files');
-assert.equal(validateHike({...hike,includeCredits:false}).includeCredits,true,'Credits must stay enabled');
+assert.equal(validateHike({...hike,includeCredits:false}).includeCredits,false,'Credits may be hidden');
 assert.throws(()=>validateHike({...hike,includeTechniqueExplanation:'yes'}));
 assert.throws(()=>validateHike({...hike,includeCredits:'yes'}));
 assert.equal(hike.steps.length,elements.length,'Validation must not mutate the original hike');
@@ -414,6 +420,7 @@ assert.equal(translate('en','notePlaceholder'),'e.g. Cross at the zebra crossing
 assert.equal(translate('nl','notePlaceholder'),'bijv. Oversteken via het zebrapad');
 assert.equal(translate('en','pdf.credits'),'created with hike-generator by Wouter van der Ven');
 assert.equal(translate('nl','pdf.credits'),'Gemaakt met https://vandervenwouter.github.io/hike-generator');
+assert.equal(translate('nl','hidePdfCredits'),'Verberg credits in footer');
 assert.ok(!Object.hasOwn(translations.nl,'darkMode')&&!Object.hasOwn(translations.nl,'lightMode'),'Theme-toggle translations must be removed');
 assert.equal(translate('nl','printPreview'),'Afdrukvoorbeeld A4');
 assert.equal(translate('nl','addCompass'),'Toevoegen');
@@ -770,6 +777,8 @@ assert.match(appSource, /box = '0 0 100 100'/,'Junction previews must use the sa
 assert.match(indexSource, /<div id="app"><\/div>/);
 assert.doesNotMatch(appSource, /#element-library.*\.innerHTML|#hike-steps.*\.innerHTML/);
 assert.match(appSource, /class="app-footer footer"/);
+assert.match(componentSources.PreviewPanel, /:checked="!state\.includeCredits"[^]*?toggle-credits[^]*?hidePdfCredits/,'PDF options must expose the hide-credits checkbox');
+assert.match(componentSources.App, /@toggle-credits="toggleCredits"/,'The hide-credits checkbox must update the active hike');
 assert.match(appSource, /data-insert-index="0"/);
 assert.match(appSource, /insertHikeItemBefore/);
 assert.doesNotMatch(appSource, /structuredClone\(draft\./,'Reactive draft values must be copied without cloning Vue proxies');

@@ -870,6 +870,11 @@ export default defineComponent({
         state.includeTechniqueExplanation = value;
         save();
       },
+      toggleCredits: (hidden) => {
+        remember();
+        state.includeCredits = !hidden;
+        save();
+      },
       setLanguage: (value) => {
         language.value = value;
       },
@@ -905,7 +910,13 @@ export default defineComponent({
             @remember="remember"
             @landmark-update="landmarkUpdate"
           />
-          <PreviewPanel :state="state" :language="language" :t="t" @toggle-guide="toggleGuide" />
+          <PreviewPanel
+            :state="state"
+            :language="language"
+            :t="t"
+            @toggle-guide="toggleGuide"
+            @toggle-credits="toggleCredits"
+          />
         </main>
         <footer class="app-footer footer" aria-label="Credits">
           <span class="credits-links">

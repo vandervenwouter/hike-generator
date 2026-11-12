@@ -3,7 +3,7 @@ import { elements, dotArrowShape, drawSheet, drawTechniqueGuide, preloadPhotos, 
 import { useIcons } from '../icons.js';
 
 export default defineComponent({
-  props: ['state', 'language', 't'], emits: ['toggle-guide'],
+  props: ['state', 'language', 't'], emits: ['toggle-guide', 'toggle-credits'],
   setup(props) {
     useIcons();
     const paperPreview = ref(null); let photoKey = '';
@@ -30,6 +30,15 @@ export default defineComponent({
             @change="$emit('toggle-guide', $event.target.checked)"
           />
           <span>{{ t('includeTechniqueGuide') }}</span>
+        </label>
+        <label>
+          <input
+            id="hide-pdf-credits"
+            type="checkbox"
+            :checked="!state.includeCredits"
+            @change="$emit('toggle-credits', $event.target.checked)"
+          />
+          <span>{{ t('hidePdfCredits') }}</span>
         </label>
       </details>
       <div id="paper-preview" ref="paperPreview"></div>

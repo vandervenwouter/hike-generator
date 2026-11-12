@@ -18,7 +18,7 @@ import {
   elementName,
   elements,
   groupName,
-  hikeTechniques,
+  techniqueGuidePages,
   landmarkArms,
   landmarkName,
   landmarkTypes,
@@ -634,13 +634,15 @@ export default defineComponent({
     const renderPrint = () => {
       const hike = snapshot();
       printOutput.value.replaceChildren();
-      if (hike.includeTechniqueExplanation && hikeTechniques(hike).length) {
+      const guidePages = hike.includeTechniqueExplanation ? techniqueGuidePages(hike) : [];
+      for (let pageIndex = 0; pageIndex < guidePages.length; pageIndex++) {
         const canvas = drawTechniqueGuide(
           document.createElement('canvas'),
           hike,
           12,
           Path2D,
           language.value,
+          pageIndex,
         );
         canvas.className = 'paper';
         printOutput.value.append(canvas);

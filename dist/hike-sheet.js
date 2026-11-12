@@ -324,16 +324,16 @@ export const translations = {
     'guide.dot-arrow':
       'Follow the line from the dot to the arrow. Read it relative to your walking direction: up means straight ahead.',
     'guide.eyes':
-      'Walk in the direction the eyes are looking. Read it relative to your walking direction: looking up means straight ahead, looking down means turn back.',
+      'Walk in the direction the eyes are looking. Looking up means straight ahead, looking down means turn back.',
     'guide.compass':
       'Follow the given compass bearing. 0° is north, 90° east, 180° south and 270° west.',
     'guide.clock':
       'First draw the clock hands for the given time. Point the short hand north; the long hand shows your walking direction.',
     'guide.fraction':
-      'The numerator selects the road; the denominator is the total number of roads. Include the road you arrived on and count from left to right.',
+      'Count clockwise from the first road on your left. The last is the road you came from.',
     'guide.quiz':
-      'Answer the question. The first road on your left is A; continue clockwise with B, C, D, etc. Take the road matching your answer. Count the road you arrived on last.',
-    'guide.photo': 'Use a photo as the route instruction.',
+      'Count clockwise from the first road on your left. The first road is A; the last road is where you came from.',
+    'guide.photo': 'Follow the route instruction as shown in the image.',
     'technique.stripkaart': 'Stripkaart',
     'guide.stripkaart':
       'Start at the dot and follow the vertical route line upward. Leave every marked side road on its side. A dashed side road is a faint path.',
@@ -567,16 +567,16 @@ export const translations = {
     'guide.dot-arrow':
       'Volg de lijn vanaf het bolletje naar de pijl. Lees de richting vanuit je looprichting: omhoog is rechtdoor.',
     'guide.eyes':
-      'Loop in de richting waarin de ogen kijken, vanuit je eigen looprichting. Omhoog kijken betekent rechtdoor; omlaag kijken betekent terug.',
+      'Loop in de richting waarin de ogen kijken. Omhoog kijken betekent rechtdoor; omlaag kijken betekent terug.',
     'guide.compass':
       'Loop in de aangegeven kompasrichting. 0° is noord, 90° oost, 180° zuid en 270° west.',
     'guide.clock':
       'Teken eerst zelf de wijzers bij de gegeven tijd. Richt de kleine wijzer naar het noorden; de grote wijzer geeft je looprichting aan.',
     'guide.fraction':
-      'De teller geeft aan welke weg je neemt; de noemer is het totale aantal wegen. Tel de aankomstweg mee en tel van links naar rechts.',
+      'Tel vanaf de eerste weg aan je linkerhand, met de klok mee. De laatste is de weg waar je vandaan kwam.',
     'guide.quiz':
-      'Beantwoord de vraag. De eerste weg aan je linkerhand is A; ga met de klok mee verder met B, C, D, enz. Neem de weg van jouw antwoord. De aankomstweg telt als laatste mee.',
-    'guide.photo': 'Gebruik een foto als route-instructie.',
+      'Tel vanaf de eerste weg aan je linkerhand, met de klok mee. De eerste weg is A, de laatste weg is waar je vandaan kwam.',
+    'guide.photo': 'Volg de route-instructie zoals op de afbeelding.',
     'technique.stripkaart': 'Stripkaart',
     'guide.stripkaart':
       'Begin bij de stip en volg de verticale routelijn omhoog. Laat iedere gemarkeerde zijweg aan die kant liggen. Een gestreepte zijweg is een hazenpaadje.',
@@ -1005,10 +1005,17 @@ export function hikePages(hike){
   return pages;
 }
 export const pageCount = hike => hikePages(hike).length;
+const techniqueGuideOrder=['junction','dot-arrow','eyes','compass','clock','fraction','quiz','photo','stripkaart'];
 export function hikeTechniques(hike){
-  return [...new Set(hike.steps.map(step=>step.technique??'junction').filter(technique=>technique!=='input'))];
+  const used=new Set(hike.steps.map(step=>step.technique??'junction'));
+  return techniqueGuideOrder.filter(technique=>used.has(technique));
 }
-export const documentPageCount = hike => pageCount(hike)+(hike.includeTechniqueExplanation&&hikeTechniques(hike).length?1:0);
+export function techniqueGuidePages(hike){
+  const techniques=hikeTechniques(hike),pages=[];
+  for(let index=0;index<techniques.length;index+=8)pages.push(techniques.slice(index,index+8));
+  return pages;
+}
+export const documentPageCount = hike => pageCount(hike)+(hike.includeTechniqueExplanation?techniqueGuidePages(hike).length:0);
 export const serializeHike = hike => JSON.stringify({format:'hike-generator-hike',version:1,hike:validateHike(hike)},null,2);
 const photoImageCache=new Map();
 const photoPattern=/^data:image\/(?:png|jpeg);base64,[A-Za-z0-9+/]+={0,2}$/;
@@ -1144,22 +1151,33 @@ function drawLayers(ctx,Path,layers,rotation=0){
     const path=new Path(layer.path);if(layer.fill)ctx.fill(path,layer.fillRule??'nonzero');if(layer.width)ctx.stroke(path);ctx.restore();
   }
 }
-export function drawTechniqueGuide(canvas,hike,scale=3,Path=Path2D,language='en'){
+const techniqueGuideExamples={
+  junction:{element:'cross-right',rotation:0,landmarks:[],faintArms:[]},
+  compass:{bearing:0},
+  clock:{},
+  fraction:{numerator:3,denominator:4},
+  'dot-arrow':{rotation:0},
+  eyes:{rotation:0},
+  quiz:{},
+  photo:{},
+  stripkaart:{points:[{left:1,right:1,faintRoads:[]},{left:0,right:2,faintRoads:[]}],endMarker:'arrow'},
+};
+export function drawTechniqueGuide(canvas,hike,scale=3,Path=Path2D,language='en',pageIndex=0){
   canvas.width=210*scale;canvas.height=297*scale;
   const ctx=canvas.getContext('2d');ctx.scale(scale,scale);ctx.fillStyle='#fff';ctx.fillRect(0,0,210,297);ctx.textBaseline='top';ctx.lineCap='round';ctx.lineJoin='round';
   function text(value,x,y,size=3.5,weight=400,color='#000000',width=118,maxLines=8){ctx.fillStyle='#000000';ctx.font=`${weight} ${size}px Arial, sans-serif`;wrap(ctx,value,width).slice(0,maxLines).forEach((line,i)=>fillCanvasText(ctx,line,x,y+i*size*1.35));}
   text(translate(language,'guide.title'),14,13,7,700,'#000000',182,2);
-  const techniques=hikeTechniques(hike),stride=Math.min(70,240/techniques.length),height=stride-10;
+  const techniques=techniqueGuidePages(hike)[pageIndex]??[],stride=Math.min(40,240/techniques.length),height=stride-10;
   techniques.forEach((technique,index)=>{
-    const y=37+index*stride,step=hike.steps.find(item=>(item.technique??'junction')===technique);
+    const y=37+index*stride,step=techniqueGuideExamples[technique],illustrationSize=Math.min(24,height-4);
     ctx.strokeStyle='#000000';ctx.lineWidth=.25;ctx.strokeRect(14,y,182,height);
     ctx.save();
-    if(technique==='fraction'||technique==='quiz'){ctx.fillStyle='#000000';ctx.font='700 12px Arial, sans-serif';ctx.textAlign='center';ctx.textBaseline='middle';fillCanvasText(ctx,technique==='quiz'?'A B C':`${step.numerator}/${step.denominator}`,40,y+height/2);}
-    else if(technique==='photo'){const photoSize=Math.min(36,height-4);drawPhoto(ctx,step.image,40-photoSize/2,y+height/2-photoSize/2,photoSize,photoSize);}
+    if(technique==='fraction'||technique==='quiz'){ctx.fillStyle='#000000';ctx.font='700 7px Arial, sans-serif';ctx.textAlign='center';ctx.textBaseline='middle';fillCanvasText(ctx,technique==='quiz'?'A B C':`${step.numerator}/${step.denominator}`,40,y+height/2);}
+    else if(technique==='photo'){drawPhoto(ctx,step.image,40-illustrationSize/2,y+height/2-illustrationSize/2,illustrationSize,illustrationSize);}
     else if(technique==='input'){ctx.strokeStyle='#000000';ctx.lineWidth=1;ctx.strokeRect(22,y+height/2-6,36,12);ctx.fillStyle='#000000';ctx.font='700 8px Arial, sans-serif';ctx.textAlign='center';ctx.textBaseline='middle';fillCanvasText(ctx,'Aa',40,y+height/2);}
-    else if(technique==='stripkaart'){const diagramHeight=stripkaartHeight(step.points),diagramScale=Math.min(44/100,(height-4)/diagramHeight);ctx.translate(40-diagramScale*50,y+(height-diagramScale*diagramHeight)/2);ctx.scale(diagramScale,diagramScale);drawLayers(ctx,Path,stripkaartLayers(step.points,step.endMarker));}
+    else if(technique==='stripkaart'){const diagramHeight=stripkaartHeight(step.points),diagramScale=Math.min(illustrationSize/100,(height-4)/diagramHeight);ctx.translate(40-diagramScale*50,y+(height-diagramScale*diagramHeight)/2);ctx.scale(diagramScale,diagramScale);drawLayers(ctx,Path,stripkaartLayers(step.points,step.endMarker));}
     else{
-      const size=Math.min(44,height-4);ctx.translate(40-size/2,y+(height-size)/2);ctx.scale(size/100,size/100);
+      const size=illustrationSize;ctx.translate(40-size/2,y+(height-size)/2);ctx.scale(size/100,size/100);
       if(technique==='junction'||technique==='dot-arrow'){const element=technique==='dot-arrow'?dotArrowShape(step.element):elements.find(element=>element.id===step.element),offset=technique==='junction'?junctionOffset(element,step.landmarks):{x:0,y:0};ctx.translate(50,50);ctx.rotate((step.rotation??0)*Math.PI/180);ctx.translate(-50+offset.x,-50+offset.y);drawLayers(ctx,Path,technique==='dot-arrow'?dotArrowLayers(element):junctionLayers(element,step.landmarks,step.faintArms),step.rotation??0);}
       else drawLayers(ctx,Path,technique==='eyes'?eyesLayers(step.rotation):technique==='compass'?compassLayers(step.bearing):clockLayers());
     }
@@ -1169,7 +1187,7 @@ export function drawTechniqueGuide(canvas,hike,scale=3,Path=Path2D,language='en'
   });
   ctx.strokeStyle='#000000';ctx.lineWidth=.25;ctx.beginPath();ctx.moveTo(14,281);ctx.lineTo(196,281);ctx.stroke();
   if(hike.includeCredits)text(translate(language,'pdf.credits'),14,285,2.7,400,'#000000',140,1);
-  text(translate(language,'pdf.page',{page:1,pages:documentPageCount(hike)}),175,285,2.7,700,'#000000',21,1);
+  text(translate(language,'pdf.page',{page:pageIndex+1,pages:documentPageCount(hike)}),175,285,2.7,700,'#000000',21,1);
   return canvas;
 }
 // The same drawing renders the preview and the 305 dpi PDF: no second layout to drift.
@@ -1240,7 +1258,7 @@ export function drawSheet(canvas,hike,pageIndex,scale=3,Path=Path2D,language='en
     y+=Math.max(...cards.map(card=>card.height))+2;
   }
   if(pageIndex===pageCount(hike)-1)endpoint(translate(language,'finish'),hike.finish,Math.min(y+2,267));
-  const pageOffset=hike.includeTechniqueExplanation&&hikeTechniques(hike).length?1:0;
+  const pageOffset=hike.includeTechniqueExplanation?techniqueGuidePages(hike).length:0;
   rule(14,281,182);if(hike.includeCredits)text(translate(language,'pdf.credits'),14,285,2.7,400,'#000000',140,1);text(translate(language,'pdf.page',{page:pageIndex+1+pageOffset,pages:documentPageCount(hike)}),175,285,2.7,700,'#000000',21,1);
   return canvas;
 }
@@ -1252,7 +1270,7 @@ export async function createPDF(hike,makeCanvas=()=>document.createElement('canv
   const {PDFDocument}=await import('./vendor/pdf-lib.js');
   const pdf=await PDFDocument.create();if(hike.title.trim())pdf.setTitle(hike.title.trim());pdf.setCreator('hike-generator');
   async function addCanvas(canvas){const image=await pdf.embedPng(canvas.toDataURL('image/png'));pdf.addPage([595.27559,841.88976]).drawImage(image,{x:0,y:0,width:595.27559,height:841.88976});canvas.width=canvas.height=0;}
-  if(hike.includeTechniqueExplanation&&hikeTechniques(hike).length)await addCanvas(drawTechniqueGuide(makeCanvas(),hike,12,Path,language));
+  if(hike.includeTechniqueExplanation)for(let pageIndex=0;pageIndex<techniqueGuidePages(hike).length;pageIndex++)await addCanvas(drawTechniqueGuide(makeCanvas(),hike,12,Path,language,pageIndex));
   for(let i=0;i<pageCount(hike);i++){
     await addCanvas(drawSheet(makeCanvas(),hike,i,12,Path,language));
   }
